@@ -1,14 +1,23 @@
 const express = require("express");
 const multer = require("./UploaderConfig/uploader")
-const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const app = express();
 const database = require("./DatabaseConfig/connection");
-const User = require("./Models/UserModel");
+const User = require("./Models/UserModel")
+const bodyParser = require("body-parser");
+const passport = require("passport");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+    session({
+        secret: "secretcode",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
 require("./passportconfig")(passport);
 
 app.get("/",async (req,res) => {
@@ -31,7 +40,7 @@ app.post("/register",multer.single("image"),async (req,res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             password : hashpassword,
-            image : req.file.image,
+            image : req.file.filename,
             updatedAt: new Date(),
             createdAt: new Date()
         }
@@ -39,4 +48,30 @@ app.post("/register",multer.single("image"),async (req,res) => {
         res.status(200).send(createdUser);
     }
 })
+
+app.post("/login",(req,res,next) => {
+    passport.authenticate('local',(err,user,info) => {
+          if(err) throw err;
+          if(!user) {
+              res.status(501).send("User dont exsist")
+          }
+          else {
+              req.login(user,(err) => {
+                  if(err) throw err;
+                  res.send("Successfuly authenticate");
+              })
+          }
+      })(req,res,next);
+    //console.log(req.body.email);
+    // passport.authenticate('local', function (err, user, info) {
+    //     if (err) {
+    //         return res.status(401).json(err);
+    //     }
+    //     if (user) {
+    //         return res.status(200).json({"success" :"true"});
+    //     } else {
+    //         res.status(401).json(info);
+    //     }
+    // })(req, res, next)
+});
 module.exports = app;
