@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const database = require("../DatabaseConfig/connection")
-const User = database.define('User', {
+
+const User = database.define('users', {
     Id: {
         type: DataTypes.INTEGER,
         allowNull : false,
@@ -27,8 +28,13 @@ const User = database.define('User', {
         type: DataTypes.STRING,
         allowNull : true
     },
-    CreatedAt: {
-        type: DataTypes.DATE,
-        allowNull : false
+    createdAt: {
+        type: Sequelize.DATE,
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
     }
+}, {
+    timestamps: false
 });
+module.exports = User;
