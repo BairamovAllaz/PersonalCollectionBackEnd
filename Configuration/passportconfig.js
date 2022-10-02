@@ -18,10 +18,10 @@ module.exports = function (passport) {
         })
     );
     passport.serializeUser((user, cb) => {
-        cb(null, user);
+        cb(null, user.Id);
     });
     passport.deserializeUser(async (id, cb) => {
-        AuthService.findUserById().then(data => {
+        AuthService.findUserById(id).then(data => {
             cb(null,data);
         }).catch(err => {
             cb(null,false);

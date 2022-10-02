@@ -45,6 +45,10 @@ module.exports = class AuthController {
         }
     }
 
+    static async apiGetAuthUser(req,res,next) {
+        res.json(req.user);
+    }
+
     static validateEmail(email) {
         return String(email)
             .toLowerCase()

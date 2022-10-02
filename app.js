@@ -28,9 +28,5 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const authRoute = require("./Routes/auth.routes");
 app.use("/v1",authRoute);
 
-app.get("/get",(req,res) => {
-    console.log(req.user);
-    res.send("Ok");
-})
 
 module.exports = app;
