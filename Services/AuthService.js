@@ -2,6 +2,7 @@ const database = require("../Models/UserModel");
 const User = require("../Models/UserModel");
 
 module.exports = class AuthService{
+
     static async CreateUser(data) {
         try {
             const newuser = {
@@ -51,9 +52,6 @@ module.exports = class AuthService{
             console.log(err);
         }
     }
-
-
-
 
 }
 

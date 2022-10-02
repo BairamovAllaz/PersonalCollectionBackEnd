@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const User = require("./Models/UserModel")
-const AuthService = require("./Services/AuthService")
+const User = require("../Models/UserModel")
+const AuthService = require("../Services/AuthService")
 const LocalStrategy = require("passport-local").Strategy;
 module.exports = function (passport) {
     passport.use(
@@ -21,8 +21,11 @@ module.exports = function (passport) {
         cb(null, user);
     });
     passport.deserializeUser(async (id, cb) => {
-        const response = await AuthService.findUserById(id);
-        cb(null, response);
+        AuthService.findUserById().then(data => {
+            cb(null,data);
+        }).catch(err => {
+            cb(null,false);
+        })
     });
 }
 
