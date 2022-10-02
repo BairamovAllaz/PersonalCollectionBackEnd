@@ -35,7 +35,7 @@ module.exports = function (passport) {
         }).then(data => {
             cb(null, data);
         }).catch(err => {
-            cd(null,false);
+            cb(null,false);
         })
     });
 }

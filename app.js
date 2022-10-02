@@ -8,9 +8,13 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//MIDDLEWARES
+app.use(cors());
+app.use("/uploads",require("express").static("uploads"));
+app.use(cookieParser("secretcode"));
 app.use(
     session({
         secret: "secretcode",
@@ -18,12 +22,21 @@ app.use(
         saveUninitialized: true,
     })
 );
+
 require("./passportconfig")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.get("/",async (req,res) => {
     res.send("Hello world");
 })
 app.post("/register",multer.single("image"),async (req,res) => {
+    if(!validateEmail(req.body.email)){
+        return res.status(401).send("Email syntax is not good!");
+    }
     const u = await User.findOne({
         where : {
             email : req.body.email
@@ -49,6 +62,15 @@ app.post("/register",multer.single("image"),async (req,res) => {
     }
 })
 
+const validateEmail = (email) => {
+    return String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+};
+
+
 app.post("/login",(req,res,next) => {
     passport.authenticate('local',(err,user,info) => {
           if(err) throw err;
@@ -62,16 +84,8 @@ app.post("/login",(req,res,next) => {
               })
           }
       })(req,res,next);
-    //console.log(req.body.email);
-    // passport.authenticate('local', function (err, user, info) {
-    //     if (err) {
-    //         return res.status(401).json(err);
-    //     }
-    //     if (user) {
-    //         return res.status(200).json({"success" :"true"});
-    //     } else {
-    //         res.status(401).json(info);
-    //     }
-    // })(req, res, next)
 });
+
+
+
 module.exports = app;
