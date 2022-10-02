@@ -1,42 +1,28 @@
 const bcrypt = require("bcrypt");
 const User = require("./Models/UserModel")
+const AuthService = require("./Services/AuthService")
 const LocalStrategy = require("passport-local").Strategy;
 module.exports = function (passport) {
     passport.use(
-        new LocalStrategy({usernameField:'email',passwordField: 'password'},(username, password, done) => {
-            User.findOne({
-                where: {
-                    email: username
+        new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (username, password, done) => {
+            const response = await AuthService.findUserByEmail(username);
+            if (!response) return done(null, false);
+            bcrypt.compare(password, response.password, (err, result) => {
+                if (err) throw err;
+                if (result === true) {
+                    return done(null, response)
+                } else {
+                    return done(null, false)
                 }
-            }).then(data => {
-                if (!data) return done(null, false);
-                bcrypt.compare(password, data.password, (err, result) => {
-                    if (err) throw err;
-                    if (result === true) {
-                        return done(null, data)
-                    } else {
-                        return done(null, false)
-                    }
-                })
-            }).catch(err => {
-                console.log(err.message);
-                console.log("Here");
             })
         })
     );
     passport.serializeUser((user, cb) => {
         cb(null, user);
     });
-    passport.deserializeUser((id, cb) => {
-        User.findOne({
-            where: {
-                id: id
-            }
-        }).then(data => {
-            cb(null, data);
-        }).catch(err => {
-            cb(null,false);
-        })
+    passport.deserializeUser(async (id, cb) => {
+        const response = await AuthService.findUserById(id);
+        cb(null, response);
     });
 }
 
