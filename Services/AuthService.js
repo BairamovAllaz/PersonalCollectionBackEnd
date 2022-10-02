@@ -1,7 +1,7 @@
 const database = require("../Models/UserModel");
-const User = require("../Models/UserModel");
+const Token = require("../Models/ForgotToken")
 
-module.exports = class AuthService{
+class AuthService{
 
     static async CreateUser(data) {
         try {
@@ -26,7 +26,7 @@ module.exports = class AuthService{
             if(email == null) {
                 throw new Error("Email cant be null");
             }
-            const response = await User.findOne({
+            const response = await database.findOne({
                 where : {
                     email : email
                 }
@@ -42,7 +42,7 @@ module.exports = class AuthService{
             if(Id == null) {
                 throw new Error("Id cant be null");
             }
-            const response = await User.findOne({
+            const response = await database.findOne({
                 where : {
                     id : Id
                 }
@@ -53,5 +53,59 @@ module.exports = class AuthService{
         }
     }
 
-}
+    static async CreateToken(id,data) {
+        try {
+            const newtoken = {
+                userId : id,
+                token: data
+            }
+            const response = await Token.create(newtoken);
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
 
+    static async GetTokenByToken(token) {
+        try {
+            const response = await Token.findOne({
+                where:{
+                    token : token
+                }
+            });
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+    static async UpdateUserPassword(Id,newPassword) {
+        try {
+            const response = await database.update(
+                {password: newPassword},
+                {where : {
+                    id: Id
+                }}
+            )
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+
+    static async DeleteToken(token) {
+        try {
+            const response = await database.destroy({
+                where : {
+                    token : token
+                }
+            })
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+}
+module.exports = AuthService;
