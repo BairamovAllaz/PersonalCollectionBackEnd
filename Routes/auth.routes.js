@@ -6,5 +6,5 @@ router.post("/register",multer.single("image"),AuthController.apiRegisterUser)
 router.get("/User",AuthController.apiGetAuthUser);
 router.post("/login",AuthController.apiLoginUser);
 router.post("/forgot-password",AuthController.apiForgotPassword);
-router.post("/forgot-password/:userId/:token",AuthController.apiForgotPasswordPost);
+router.put("/forgot-password/:userId/:token",AuthController.apiForgotPasswordPost);
 module.exports = router;

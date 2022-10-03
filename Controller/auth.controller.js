@@ -21,15 +21,13 @@ class AuthController {
     }
 
     static async apiRegisterUser(req, res, next) {
-        //TODO FIX validateEmail
-        // if (!this.constructor.validateEmail(req.body.email)) {
-        //     return res.status(401).send("Email syntax is not good!");
-        // }
+        if(!AuthController.validateEmail(req.body.email)) {
+            return res.status(501).send("Invalid email syntax");
+        }
         const user = await AuthService.findUserByEmail(req.body.email);
         if (user) {
-            res.status(404).send("User already exsist")
+            return res.status(404).send("User already exsist")
         }
-        //
         if (!user) {
             const salt = 10;
             const hashpassword = await bcrypt.hash(req.body.password, salt);
@@ -47,11 +45,11 @@ class AuthController {
         }
     }
 
-    static async apiGetAuthUser(req,res,next) {
+    static async apiGetAuthUser(req, res, next) {
         res.json(req.user);
     }
 
-    static validateEmail(email) {
+     static validateEmail(email) {
         return String(email)
             .toLowerCase()
             .match(
@@ -60,58 +58,63 @@ class AuthController {
     };
 
 
-   static async apiForgotPassword(req,res,next) {
-       const {email} = req.body;
-       const userWithemail = await AuthService.findUserByEmail(email);
-       if (!userWithemail) {
-           return res.status(404).send("User dont founded");
-       }
-       const resetToken = crypto.randomUUID().toString();
-       const hash = await bcrypt.hash(resetToken, 10);
-       const createdToken = await AuthService.CreateToken(userWithemail.Id,hash);
-       const link = `http://localhost:5100/forgot-password/${userWithemail.Id}/${createdToken.token}`;
-       var transporter = nodemailer.createTransport({
-           service: "gmail",
-           auth: {
-               user: process.env.EMAIL,
-               pass: process.env.PASSWORD,
-           },
-       });
-       var mailOptions = {
-           from: process.env.EMAIL,
-           to: email,
-           subject: "Password Reset",
-           text: link,
-       };
-       transporter.sendMail(mailOptions, function (error, info) {
-           if (error) {
-               console.log(error);
-           } else {
-               console.log("Email sent: " + info.response);
-           }
-       });
-       res.send(link);
-   }
+    static async apiForgotPassword(req, res, next) {
+        const {email} = req.body;
+        const userWithemail = await AuthService.findUserByEmail(email);
+        if (!userWithemail) {
+            return res.status(404).send("User dont founded");
+        }
+        const resetToken = crypto.randomUUID().toString();
+        const hash = await bcrypt.hash(resetToken, 10);
+        const createdToken = await AuthService.CreateToken(userWithemail.Id, hash.replace('/', ""));
+        const link = `http://localhost:5100/v1/forgot-password/${userWithemail.Id}/${createdToken.token}`;
+        var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD,
+            },
+        });
+        var mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: "Password Reset",
+            text: link,
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent: " + info.response);
+            }
+        });
+        res.send("We sended recovery link check your email");
+    }
 
-    static async apiForgotPasswordPost(req,res,next) {
-       const {password,passwordVerify} = req.body;
-       const {userId,token} = req.params;
-        if(password !== passwordVerify) {
+    static async apiForgotPasswordPost(req, res, next) {
+        const {password, passwordVerify} = req.body;
+        const userId = req.params["userId"];
+        const token = req.params["token"];
+        console.log(userId, token);
+        if (password !== passwordVerify) {
             return res.status(404).send("Password need to be same");
+        } else {
+            const response = await AuthService.GetTokenByToken(token);
+            if (!response) {
+                return res.status(404).send("This token doesnt exsist");
+            } else {
+                const salt = 10;
+                const hashpassword = await bcrypt.hash(password, salt);
+                const updateSuccess = await AuthService.UpdateUserPassword(userId, hashpassword);
+                if (!updateSuccess) {
+                    return res.send("Error");
+                }
+                const isDelete = await AuthService.DeleteToken(token);
+                res.status(200).send("Update succesfuly");
+            }
         }
-        const response = await AuthService.GetTokenByToken(token);
-        if(!response) {
-            return res.status(404).send("This token doesnt exsist");
-        }
-        const salt = 10;
-        const hashpassword = await bcrypt.hash(password, salt);
-        const updateSuccess = await AuthService.UpdateUserPassword(userId,hashpassword);
-        if(!updateSuccess) {
-            return res.send("Error");
-        }
-        const isDelete = await AuthService.DeleteToken(token);
-        res.status(200).send("Update succesfuly");
-   }
+    }
 
 }
+
 module.exports = AuthController;

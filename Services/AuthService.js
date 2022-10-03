@@ -96,7 +96,7 @@ class AuthService{
 
     static async DeleteToken(token) {
         try {
-            const response = await database.destroy({
+            const response = await Token.destroy({
                 where : {
                     token : token
                 }
