@@ -115,6 +115,16 @@ class AuthController {
         }
     }
 
+    static async apiGoogleAuthCallBack(req,res,next) {
+        passport.authenticate('google', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+        })(req,res,next)
+    }
+
+    static async apiOpenEmail(req,res,next) {
+        passport.authenticate('google', { scope: ['profile'] })(req,res,next)
+    }
 }
 
 module.exports = AuthController;
