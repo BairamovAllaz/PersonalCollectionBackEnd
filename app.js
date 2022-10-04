@@ -5,6 +5,8 @@ const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+dotenv.config();
 //MIDDLEWARES
 app.use(cors());
 app.use("/uploads",require("express").static("uploads"));
@@ -17,6 +19,7 @@ app.use(
     })
 );
 require("./Configuration/passportconfig")(passport);
+require("./Configuration/GoogleAuthConfig")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());

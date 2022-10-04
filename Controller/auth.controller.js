@@ -1,9 +1,10 @@
 const AuthService = require("../Services/AuthService");
 const passport = require("passport");
 const crypto = require("crypto");
-const bcrypt = require("bcrypt")
-var nodemailer = require("nodemailer");
-
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
+const https = require("https");
+const {response} = require("express");
 class AuthController {
     static async apiLoginUser(req, res, next) {
         passport.authenticate('local', (err, user, info) => {
@@ -64,6 +65,7 @@ class AuthController {
         if (!userWithemail) {
             return res.status(404).send("User dont founded");
         }
+
         const resetToken = crypto.randomUUID().toString();
         const hash = await bcrypt.hash(resetToken, 10);
         const createdToken = await AuthService.CreateToken(userWithemail.Id, hash.replace('/', ""));
@@ -120,6 +122,18 @@ class AuthController {
             successRedirect: '/',
             failureRedirect: '/login',
         })(req,res,next)
+    }
+
+
+    //TODO FIX LOGOUT FOR GOOGLE
+    static async apiLogOut(req,res,next) {
+        req.logout(function (err) {
+            if(err) {
+                return next(err);
+            }
+            const response = https.get("https://accounts.google.com/logout");
+        })
+        res.status(200).send("Succesfuly logout");
     }
 
     static async apiOpenEmail(req,res,next) {
