@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "Yunona701701",
+    "database": "personalcollection",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "Yunona701701",
+    "database": "personalcollection",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "b9b09f9dc3a5f0",
+    "password": "1bff47d3",
+    "database": "heroku_15fce1d3645808c",
+    "host": "us-cdbr-east-06.cleardb.net",
+    "dialect": "mysql"
+  }
+}
