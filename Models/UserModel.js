@@ -28,6 +28,11 @@ const User = database.define('users', {
         type: DataTypes.STRING,
         allowNull : true
     },
+    userRole : {
+        type : DataTypes.BOOLEAN,
+        default : false,
+        allowNull : false,
+    },
     createdAt: {
         type: Sequelize.DATE,
     },

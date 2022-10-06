@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const https = require("https");
 const {response} = require("express");
+
 class AuthController {
     static async apiLoginUser(req, res, next) {
         passport.authenticate('local', (err, user, info) => {
@@ -22,7 +23,7 @@ class AuthController {
     }
 
     static async apiRegisterUser(req, res, next) {
-        if(!AuthController.validateEmail(req.body.email)) {
+        if (!AuthController.validateEmail(req.body.email)) {
             return res.status(501).send("Invalid email syntax");
         }
         const user = await AuthService.findUserByEmail(req.body.email);
@@ -50,7 +51,7 @@ class AuthController {
         res.json(req.user);
     }
 
-     static validateEmail(email) {
+    static validateEmail(email) {
         return String(email)
             .toLowerCase()
             .match(
@@ -117,18 +118,18 @@ class AuthController {
         }
     }
 
-    static async apiGoogleAuthCallBack(req,res,next) {
+    static async apiGoogleAuthCallBack(req, res, next) {
         passport.authenticate('google', {
             successRedirect: '/',
             failureRedirect: '/login',
-        })(req,res,next)
+        })(req, res, next)
     }
 
 
     //TODO FIX LOGOUT FOR GOOGLE
-    static async apiLogOut(req,res,next) {
+    static async apiLogOut(req, res, next) {
         req.logout(function (err) {
-            if(err) {
+            if (err) {
                 return next(err);
             }
             const response = https.get("https://accounts.google.com/logout");
@@ -136,8 +137,13 @@ class AuthController {
         res.status(200).send("Succesfuly logout");
     }
 
-    static async apiOpenEmail(req,res,next) {
-        passport.authenticate('google', { scope: ['profile'] })(req,res,next)
+    static async apiOpenEmail(req, res, next) {
+        passport.authenticate('google', {
+            scope: [
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'
+            ]
+        })(req, res, next)
     }
 }
 

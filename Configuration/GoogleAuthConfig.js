@@ -1,4 +1,7 @@
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const AuthService = require("../Services/AuthService")
+const crypto = require("crypto");
+
 module.exports = function (passport) {
     passport.use(
         new GoogleStrategy(
@@ -13,11 +16,14 @@ module.exports = function (passport) {
                     id: profile.id,
                     firstName: profile.name.givenName,
                     lastName: profile.name.familyName,
-                    email: profile.emails,
-                    image : profile.photos[0].image,
+                    email: profile.emails[0].value,
+                    image : profile.photos[0].value,
+                    password : crypto.randomUUID(),
+                    userRole: 0,
                     updatedAt: new Date(),
                     createdAt: new Date()
                 }
+                const res = AuthService.CreateIfDontExsist(newuser);
                 done(false,newuser);
             },
         ))

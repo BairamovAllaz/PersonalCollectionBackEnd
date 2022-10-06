@@ -11,6 +11,7 @@ class AuthService{
                 email: data.email,
                 password : data.password,
                 image : data.image,
+                userRole : data.userRole,
                 updatedAt: data.updatedAt,
                 createdAt: data.createdAt
             }
@@ -19,6 +20,30 @@ class AuthService{
         }catch(err) {
             console.log(err);
         }
+    }
+
+    static async CreateIfDontExsist(data) {
+        try{
+            const newuser = {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password : data.password,
+                image : data.image,
+                userRole : data.userRole,
+                updatedAt: data.updatedAt,
+                createdAt: data.createdAt
+            }
+            const isExsist = await AuthService.findUserByEmail(newuser.email);
+            if(isExsist === null) {
+                const createdUser = await AuthService.CreateUser(newuser);
+            }
+            return newuser;
+
+        }catch(err) {
+            console.log(err);
+        }
+
     }
     
     static async findUserByEmail(email) { 
