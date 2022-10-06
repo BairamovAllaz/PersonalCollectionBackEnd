@@ -14,7 +14,7 @@ class AuthController {
             } else {
                 req.login(user, (err) => {
                     if (err) throw err;
-                    res.send("Successfuly authenticate");
+                    res.send(user);
                 })
                 req.user = user;
             }
