@@ -20,6 +20,7 @@ module.exports = function (passport) {
                     image : profile.photos[0].value,
                     password : crypto.randomUUID(),
                     userRole: 0,
+                    authType : "google",
                     updatedAt: new Date(),
                     createdAt: new Date()
                 }

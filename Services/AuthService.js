@@ -12,6 +12,7 @@ class AuthService{
                 password : data.password,
                 image : data.image,
                 userRole : data.userRole,
+                authType : data.authType,
                 updatedAt: data.updatedAt,
                 createdAt: data.createdAt
             }
@@ -30,6 +31,7 @@ class AuthService{
                 email: data.email,
                 password : data.password,
                 image : data.image,
+                authType : data.authType,
                 userRole : data.userRole,
                 updatedAt: data.updatedAt,
                 createdAt: data.createdAt

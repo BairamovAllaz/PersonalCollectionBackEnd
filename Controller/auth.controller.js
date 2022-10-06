@@ -40,6 +40,7 @@ class AuthController {
                 password: hashpassword,
                 userRole : 0,
                 image: req.file.filename,
+                authType: "login",
                 updatedAt: new Date(),
                 createdAt: new Date()
             }

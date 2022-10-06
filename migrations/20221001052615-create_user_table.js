@@ -36,6 +36,10 @@ module.exports = {
           default : false,
           allowNull : false
       },
+      authType : {
+        type : DataTypes.STRING,
+        allowNull : false
+      },
       createdAt: {
         type: Sequelize.DATE,
       },
