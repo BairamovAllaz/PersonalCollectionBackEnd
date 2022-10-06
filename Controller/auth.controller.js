@@ -38,6 +38,7 @@ class AuthController {
                 lastName: req.body.lastName,
                 email: req.body.email,
                 password: hashpassword,
+                userRole : 0,
                 image: req.file.filename,
                 updatedAt: new Date(),
                 createdAt: new Date()
@@ -98,7 +99,6 @@ class AuthController {
         const {password, passwordVerify} = req.body;
         const userId = req.params["userId"];
         const token = req.params["token"];
-        console.log(userId, token);
         if (password !== passwordVerify) {
             return res.status(404).send("Password need to be same");
         } else {
