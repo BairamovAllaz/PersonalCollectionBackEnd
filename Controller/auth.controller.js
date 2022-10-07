@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const https = require("https");
 const {response} = require("express");
+const {underscoredIf} = require("sequelize/lib/utils");
 
 class AuthController {
     static async apiLoginUser(req, res, next) {
@@ -33,17 +34,20 @@ class AuthController {
         if (!user) {
             const salt = 10;
             const hashpassword = await bcrypt.hash(req.body.password, salt);
+            let image = req.file === undefined ? "https://img.favpng.com/6/2/21/avatar-computer-icons-desktop-wallpaper-user-download-png-favpng-2pedaUPvwNA2wvvLmDqLZHe3K.jpg" : req.file.filename;
+
             const user = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
                 password: hashpassword,
                 userRole : 0,
-                image: req.file.filename,
+                image: image,
                 authType: "login",
                 updatedAt: new Date(),
                 createdAt: new Date()
             }
+
             const createdUser = await AuthService.CreateUser(user);
             res.status(200).send(createdUser);
         }
@@ -121,9 +125,11 @@ class AuthController {
 
     static async apiGoogleAuthCallBack(req, res, next) {
         passport.authenticate('google', {
-            successRedirect: '/',
-            failureRedirect: '/login',
-        })(req, res, next)
+            successRedirect: 'http://localhost:3000/success/google',
+            failureRedirect: 'http://localhost:3000/fail/google',
+        }),(req, res, next) => {
+            res.send(req.user);
+        }
     }
 
 
