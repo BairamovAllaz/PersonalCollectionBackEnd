@@ -126,6 +126,16 @@ class AuthController {
         }
     }
 
+    static async apiCheckTokenExist(req,res,next) {
+        const {token} = req.body;
+        const response = await AuthService.GetTokenByToken(token);
+        if(response) {
+            res.send(true);
+        }else{
+            res.send(false);
+        }
+    }
+
     static async apiGoogleAuthCallBack(req, res, next) {
         passport.authenticate('google', {
             successRedirect: 'http://localhost:3000/success/google',
