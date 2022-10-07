@@ -5,7 +5,9 @@ const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const dotenv = require("dotenv");
+
 dotenv.config();
 //MIDDLEWARES
 app.use(
@@ -20,29 +22,13 @@ app.all("/*", function (req, res, next) {
     next();
 });
 app.set("trust proxy", 1); // trust first proxy
-app.use(
-    session({
-        secret: "836wer89r",
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            secure: true,
-            sameSite: "none",
-        },
-    })
-);
+
 
 app.use("/uploads",require("express").static("uploads"));
-app.use(cookieParser("secretcode"));
-app.use(
-    session({
-        secret: "secretcode",
-        resave: true,
-        saveUninitialized: true,
-    })
-);
+app.use(session({ secret: 'anything' }));
 require("./Configuration/passportconfig")(passport);
-require("./Configuration/GoogleAuthConfig")(passport);
+//TODO FIX OAUTH2 GOOGLE
+//require("./Configuration/GoogleAuthConfig")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json());

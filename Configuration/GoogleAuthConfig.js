@@ -25,7 +25,7 @@ module.exports = function (passport) {
                     createdAt: new Date()
                 }
                 const res = AuthService.CreateIfDontExsist(newuser);
-                done(false,newuser);
+                done(false,res);
             },
         ))
 

@@ -54,7 +54,10 @@ class AuthController {
     }
 
     static async apiGetAuthUser(req, res, next) {
-        res.json(req.user);
+        console.log(req.user);
+        if(req.user) {
+            res.json(req.user);
+        }
     }
 
     static validateEmail(email) {
@@ -76,7 +79,7 @@ class AuthController {
         const resetToken = crypto.randomUUID().toString();
         const hash = await bcrypt.hash(resetToken, 10);
         const createdToken = await AuthService.CreateToken(userWithemail.Id, hash.replace('/', ""));
-        const link = `http://localhost:5100/v1/forgot-password/${userWithemail.Id}/${createdToken.token}`;
+        const link = `http://localhost:3000/forgot-password/${userWithemail.Id}/${createdToken.token}`;
         var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -127,10 +130,9 @@ class AuthController {
         passport.authenticate('google', {
             successRedirect: 'http://localhost:3000/success/google',
             failureRedirect: 'http://localhost:3000/fail/google',
-        }),(req, res, next) => {
-            res.send(req.user);
-        }
+        })(req, res, next);
     }
+
 
 
     //TODO FIX LOGOUT FOR GOOGLE
