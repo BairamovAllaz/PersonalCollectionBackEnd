@@ -4,6 +4,7 @@ const {Col} = require("sequelize/lib/utils");
 const Collection = require("./Collection");
 const Tags = require("./Tags");
 
+
 const Item = database.define('items', {
     Id: {
         type: DataTypes.INTEGER,
@@ -27,5 +28,4 @@ const Item = database.define('items', {
 
 Item.belongsTo(Collection)
 Item.hasMany(Tags);
-
 module.exports = Item;

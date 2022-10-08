@@ -38,7 +38,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //INIT ROUTES
 
 const authRoute = require("./Routes/auth.routes");
+const controllerRoutes = require("./Routes/controller.routes");
 app.use("/v1",authRoute);
+app.use("/user",controllerRoutes);
+
 app.get("/",(req,res) => {
     console.log(req.user);
     res.send("Hello user");
