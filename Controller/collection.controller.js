@@ -7,19 +7,17 @@ class CollectionController {
             name: req.body.name,
             description: req.body.description,
             topic: req.body.topic,
+            userId : 1,
             image: req.file.filename
         }
         const collection= await CollectionService.apiCreateCollectionTable(newCollection);
-        console.log(collection);
-        const newField = {
-            field_name: req.body.field_name,
-            field_value: req.body.field_value,
-            field_type: req.body.field_type,
-            collectionId : collection.Id,
-        }
-        const resItem = await CollectionService.apiCreateItem(newField);
-        const createdCollection = {...collection,...newField};
-        res.status(200).send(createdCollection);
+        const fields = JSON.parse(req.body.field);
+        const response = await CollectionService.apiCreateItem(fields,collection.Id);
+        res.status(200).send(response);
+    }
+    static async testApi(req,res,next) {
+        const ress = CollectionService.getReq();
+        res.send(ress);
     }
 
 }

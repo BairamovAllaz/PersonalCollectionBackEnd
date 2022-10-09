@@ -45,4 +45,5 @@ const Collection = database.define('collections', {
 });
 Collection.hasMany(Item)
 Collection.hasMany(Fields)
+Fields.belongsTo(Collection);
 module.exports = Collection;

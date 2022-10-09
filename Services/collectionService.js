@@ -21,22 +21,34 @@ class CollectionService {
         }
     }
 
-    static async apiCreateItem(Field) {
+    static async apiCreateItem(fields,id) {
         try {
-            const newField = {
-                field_name: Field.field_name,
-                field_value: Field.field_value,
-                field_type: Field.field_type,
-                collectionId : Field.collectionId,
-                createdAt : new Date(),
-                updatedAt : new Date()
-            }
-
-            const response = await Fields.create(newField);
-            return response;
+            fields.forEach(element => {
+                const newField = {
+                    field_name: element.field_name,
+                    field_value: "test",
+                    field_type: element.field_type,
+                    collectionId : id,
+                    createdAt : new Date(),
+                    updatedAt : new Date()
+                }
+                Fields.create(newField);
+            })
+            return true;
         } catch(err) {
             console.log(err);
         }
+    }
+
+    static async getReq(){
+        const res = await CollectionTable.findAll({
+            include: [{
+                model: Fields,
+                required: true
+            }]
+        });
+        console.log(res);
+        return res;
     }
 
 
