@@ -15,6 +15,25 @@ const Collection = database.define('collections', {
         type : DataTypes.STRING,
         allowNull: false
     },
+    description : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    userId : {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'users',
+            key: 'Id',
+        }
+    },
+    topic : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
+    image : {
+        type : DataTypes.STRING,
+        allowNull : false
+    },
     createdAt: {
         type: Sequelize.DATE,
     },

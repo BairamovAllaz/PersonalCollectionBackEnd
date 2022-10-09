@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const authRoute = require("./Routes/auth.routes");
 const controllerRoutes = require("./Routes/controller.routes");
 app.use("/v1",authRoute);
-app.use("/user",controllerRoutes);
+app.use("/collection",controllerRoutes);
 
 app.get("/",(req,res) => {
     console.log(req.user);

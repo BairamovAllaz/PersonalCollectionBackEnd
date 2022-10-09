@@ -10,7 +10,9 @@ class CollectionService {
                 name: collection.name,
                 description: collection.description,
                 topic: collection.topic,
-                image: collection.image
+                image: collection.image,
+                createdAt : new Date(),
+                updatedAt : new Date()
             }
             const response = await CollectionTable.create(newCollection);
             return response;
@@ -26,6 +28,8 @@ class CollectionService {
                 field_value: Field.field_value,
                 field_type: Field.field_type,
                 collectionId : Field.collectionId,
+                createdAt : new Date(),
+                updatedAt : new Date()
             }
 
             const response = await Fields.create(newField);

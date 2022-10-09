@@ -40,5 +40,4 @@ const Fields = database.define('fields', {
 }, {
     timestamps: false
 });
-Fields.belongsTo(Collection);
 module.exports = Fields;

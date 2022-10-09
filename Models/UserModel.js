@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const database = require("../Configuration/connection")
+const Collection = require("./Collection");
 
 const User = database.define('users', {
     Id: {
@@ -46,4 +47,5 @@ const User = database.define('users', {
 }, {
     timestamps: false
 });
+User.hasMany(Collection)
 module.exports = User;

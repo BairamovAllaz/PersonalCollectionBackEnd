@@ -14,7 +14,7 @@ const Tags = database.define('tags', {
         type : DataTypes.STRING,
         allowNull: false
     },
-    tagsId: {
+    itemId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'items',
@@ -30,5 +30,5 @@ const Tags = database.define('tags', {
 }, {
     timestamps: false
 });
-Tags.belongsTo(Item);
+
 module.exports = Tags;

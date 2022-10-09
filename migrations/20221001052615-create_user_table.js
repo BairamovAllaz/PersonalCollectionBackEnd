@@ -4,7 +4,7 @@ const {DataTypes} = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.createTable("users",{
+    await queryInterface.createTable("users",{
       Id: {
         type: DataTypes.INTEGER,
         allowNull : false,
@@ -46,10 +46,137 @@ module.exports = {
       updatedAt: {
         type: Sequelize.DATE,
       }
-    })
-  },
+    });
+    await queryInterface.createTable("collections",{
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name : {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
+      description : {
+        type : DataTypes.STRING,
+        allowNull : false
+      },
+      topic : {
+        type : DataTypes.STRING,
+        allowNull : false
+      },
+      userId : {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'users',
+          key: 'Id',
+        }
+      },
+      image : {
+        type : DataTypes.STRING,
+        allowNull : false
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+    });
 
+    await queryInterface.createTable("items",{
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name: {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
+      colllectionId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'collections',
+          key: 'Id',
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+    });
+
+    await queryInterface.createTable("tags",{
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      name : {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
+      itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'items',
+          key: 'Id',
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+    });
+
+
+    await queryInterface.createTable("fields",{
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      field_name : {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
+      field_value: {
+        type: DataTypes.STRING,
+        allowNull : false
+      },
+      field_type : {
+        type : DataTypes.STRING,
+        allowNull : null
+      },
+      collectionId : {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'collections',
+          key: 'Id',
+        }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+    });
+  },
   async down (queryInterface, Sequelize) {
-    return queryInterface.dropTable("users");
+    await queryInterface.dropTable("collections");
+    await queryInterface.dropTable("items");
+    await queryInterface.dropTable("tags");
+    await queryInterface.dropTable("fields");
+    await queryInterface.dropTable("users");
   }
 };

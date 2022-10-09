@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const database = require("../Configuration/connection")
 const {Col} = require("sequelize/lib/utils");
 const Collection = require("./Collection");
-const Tags = require("./Tags");
+const Tag = require("./Tags")
 
 
 const Item = database.define('items', {
@@ -12,9 +12,16 @@ const Item = database.define('items', {
         autoIncrement: true,
         primaryKey: true
     },
-    name : {
+    name: {
         type : DataTypes.STRING,
         allowNull: false
+    },
+    colllectionId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'collections',
+            key: 'Id',
+        },
     },
     createdAt: {
         type: Sequelize.DATE,
@@ -26,6 +33,5 @@ const Item = database.define('items', {
     timestamps: false
 });
 
-Item.belongsTo(Collection)
-Item.hasMany(Tags);
+Item.hasMany(Tag);
 module.exports = Item;

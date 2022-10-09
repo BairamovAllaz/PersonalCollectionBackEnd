@@ -10,7 +10,7 @@ class CollectionController {
             image: req.file.filename
         }
         const collection= await CollectionService.apiCreateCollectionTable(newCollection);
-
+        console.log(collection);
         const newField = {
             field_name: req.body.field_name,
             field_value: req.body.field_value,
