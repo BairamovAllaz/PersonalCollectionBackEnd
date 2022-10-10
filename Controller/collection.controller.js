@@ -8,6 +8,7 @@ class CollectionController {
             name: req.body.name,
             description: req.body.description,
             topic: req.body.topic,
+            about : req.body.about,
             userId : req.body.userId,
             image: image
         }

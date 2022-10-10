@@ -52,12 +52,11 @@ class AuthController {
             res.status(200).send(createdUser);
         }
     }
-
-    static async apiGetAuthUser(req, res, next) {
-        console.log(req.user);
-        if(req.user) {
-            res.json(req.user);
-        }
+    static async apiGetAuthUserById(req, res, next) {
+        const userId = req.params.id;
+        console.log(userId);
+        const user = await AuthService.findUserById(userId);
+        res.send(user);
     }
 
     static validateEmail(email) {

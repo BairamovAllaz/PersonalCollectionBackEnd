@@ -66,6 +66,10 @@ module.exports = {
         type : DataTypes.TEXT,
         allowNull : false
       },
+      about : {
+        type : DataTypes.STRING,
+        allowNull : false,
+      },
       topic : {
         type : DataTypes.STRING,
         allowNull : false

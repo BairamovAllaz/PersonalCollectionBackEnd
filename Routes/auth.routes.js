@@ -6,7 +6,7 @@ const AuthController = require("../Controller/auth.controller");
 const dotenv = require("dotenv");
 dotenv.config();
 router.post("/register",multer.single("image"),AuthController.apiRegisterUser)
-router.get("/User",AuthController.apiGetAuthUser);
+router.get("/get/:id",AuthController.apiGetAuthUserById);
 router.post("/login",AuthController.apiLoginUser);
 router.get("/logout",AuthController.apiLogOut);
 router.post("/forgot-password",AuthController.apiForgotPassword);

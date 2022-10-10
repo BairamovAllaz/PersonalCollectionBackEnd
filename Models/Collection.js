@@ -19,6 +19,10 @@ const Collection = database.define('collections', {
         type : DataTypes.STRING,
         allowNull : false
     },
+    about : {
+        type : DataTypes.STRING,
+        allowNull : false,
+    },
     userId : {
         type: DataTypes.INTEGER,
         references: {
@@ -50,4 +54,5 @@ const Collection = database.define('collections', {
 Collection.hasMany(Item)
 Collection.hasMany(Fields)
 Fields.belongsTo(Collection);
+Item.belongsTo(Collection);
 module.exports = Collection;

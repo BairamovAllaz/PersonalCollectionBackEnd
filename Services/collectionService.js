@@ -11,6 +11,7 @@ class CollectionService {
                 name: collection.name,
                 description: collection.description,
                 topic: collection.topic,
+                about : collection.about,
                 image: collection.image,
                 userId : collection.userId,
                 createdAt : new Date(),

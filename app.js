@@ -39,12 +39,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const authRoute = require("./Routes/auth.routes");
 const controllerRoutes = require("./Routes/collection.routes");
+const userpageRoutes = require("./Routes/userpage.routes");
 app.use("/v1",authRoute);
 app.use("/collection",controllerRoutes);
+app.use("/userpage",userpageRoutes)
 
 app.get("/",(req,res) => {
     console.log(req.user);
     res.send("Hello user");
 })
+app.use("/uploads",express.static("uploads"))
 
 module.exports = app;
