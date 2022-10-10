@@ -34,6 +34,10 @@ const Collection = database.define('collections', {
         type : DataTypes.STRING,
         allowNull : false
     },
+    isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+    },
     createdAt: {
         type: Sequelize.DATE,
     },

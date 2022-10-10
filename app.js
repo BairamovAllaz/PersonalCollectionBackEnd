@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //INIT ROUTES
 
 const authRoute = require("./Routes/auth.routes");
-const controllerRoutes = require("./Routes/controller.routes");
+const controllerRoutes = require("./Routes/collection.routes");
 app.use("/v1",authRoute);
 app.use("/collection",controllerRoutes);
 

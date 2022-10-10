@@ -40,6 +40,10 @@ module.exports = {
         type : DataTypes.STRING,
         allowNull : false
       },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+      },
       createdAt: {
         type: Sequelize.DATE,
       },
@@ -59,7 +63,7 @@ module.exports = {
         allowNull: false
       },
       description : {
-        type : DataTypes.STRING,
+        type : DataTypes.TEXT,
         allowNull : false
       },
       topic : {
@@ -72,6 +76,10 @@ module.exports = {
           model: 'users',
           key: 'Id',
         }
+      },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
       },
       image : {
         type : DataTypes.STRING,
@@ -103,6 +111,10 @@ module.exports = {
           key: 'Id',
         },
       },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+      },
       createdAt: {
         type: Sequelize.DATE,
       },
@@ -128,6 +140,10 @@ module.exports = {
           model: 'items',
           key: 'Id',
         },
+      },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -156,6 +172,10 @@ module.exports = {
       field_type : {
         type : DataTypes.STRING,
         allowNull : null
+      },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
       },
       collectionId : {
         type: DataTypes.INTEGER,

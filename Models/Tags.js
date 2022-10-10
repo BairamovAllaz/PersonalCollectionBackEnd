@@ -21,6 +21,10 @@ const Tags = database.define('tags', {
             key: 'Id',
         },
     },
+    isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+    },
     createdAt: {
         type: Sequelize.DATE,
     },

@@ -2,15 +2,17 @@ const CollectionTable = require("../Models/Collection");
 const ItemsTable = require("../Models/Item");
 const Fields = require("../Models/Fields");
 const Tags = require("../Models/Tags");
+const Topics = require("../Models/Topics");
 
 class CollectionService {
-    static async apiCreateCollectionTable(collection) {
+    static async CreateCollectionTable(collection) {
         try {
             const newCollection = {
                 name: collection.name,
                 description: collection.description,
                 topic: collection.topic,
                 image: collection.image,
+                userId : collection.userId,
                 createdAt : new Date(),
                 updatedAt : new Date()
             }
@@ -21,7 +23,7 @@ class CollectionService {
         }
     }
 
-    static async apiCreateItem(fields,id) {
+    static async CreateItem(fields, id) {
         try {
             fields.forEach(element => {
                 const newField = {
@@ -49,6 +51,16 @@ class CollectionService {
         });
         console.log(res);
         return res;
+    }
+
+    static async getTopics() {
+        try{
+            const response = await Topics.findAll();
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+
     }
 
 

@@ -23,6 +23,10 @@ const Item = database.define('items', {
             key: 'Id',
         },
     },
+    isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+    },
     createdAt: {
         type: Sequelize.DATE,
     },
@@ -34,4 +38,5 @@ const Item = database.define('items', {
 });
 
 Item.hasMany(Tag);
+Tag.belongsTo(Item);
 module.exports = Item;
