@@ -10,29 +10,39 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 //MIDDLEWARES
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(
     cors({
         credentials: true,
-        origin: ["http://localhost:3000"]
+        origin: ["http://localhost:3000"],
+        methods:['GET','POST']
     })
 );
-app.all("/*", function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
+app.use(
+    session({
+        secret: "secretcode",
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+app.use(cookieParser("secretcode"));
+
+// app.all("/*", function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     next();
+// });
 app.set("trust proxy", 1); // trust first proxy
 
 
 app.use("/uploads",require("express").static("uploads"));
-app.use(session({ secret: 'anything' }));
+app.use(passport.initialize());
+app.use(passport.session());
 require("./Configuration/passportconfig")(passport);
 //TODO FIX OAUTH2 GOOGLE
 //require("./Configuration/GoogleAuthConfig")(passport);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 ///
 
 //INIT ROUTES

@@ -6,6 +6,7 @@ module.exports = function (passport) {
     passport.use(
         new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (username, password, done) => {
             const response = await AuthService.findUserByEmail(username);
+            console.log("Fuser: " + response);
             if (!response) return done(null, false);
             bcrypt.compare(password, response.password, (err, result) => {
                 if (err) throw err;
@@ -20,11 +21,9 @@ module.exports = function (passport) {
     passport.serializeUser((user, cb) => {
         cb(null, user.Id);
     });
-    passport.deserializeUser(async (id, cb) => {
+    passport.deserializeUser( (id, cb) => {
         AuthService.findUserById(id).then(data => {
             cb(null,data);
-        }).catch(err => {
-            cb(null,false);
         })
     });
 }

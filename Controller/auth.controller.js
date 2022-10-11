@@ -59,6 +59,11 @@ class AuthController {
         res.send(user);
     }
 
+    static async apiGetUser(req,res,next) {
+        console.log(req.user);
+        res.send(req.user);
+    }
+
     static validateEmail(email) {
         return String(email)
             .toLowerCase()
