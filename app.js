@@ -15,8 +15,8 @@ app.use(bodyParser.json())
 app.use(
     cors({
         credentials: true,
-        origin: ["http://localhost:3000"],
-        methods:['GET','POST']
+        origin: "http://localhost:3000",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     })
 );
 app.use(
@@ -36,7 +36,6 @@ app.use(cookieParser("secretcode"));
 app.set("trust proxy", 1); // trust first proxy
 
 
-app.use("/uploads",require("express").static("uploads"));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./Configuration/passportconfig")(passport);
@@ -59,5 +58,4 @@ app.get("/",(req,res) => {
     res.send("Hello user");
 })
 app.use("/uploads",express.static("uploads"))
-
 module.exports = app;

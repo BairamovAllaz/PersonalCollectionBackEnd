@@ -49,7 +49,7 @@ class AuthController {
             }
 
             const createdUser = await AuthService.CreateUser(user);
-            res.status(200).send(createdUser);
+            res.redirect("/login");
         }
     }
     static async apiGetAuthUserById(req, res, next) {
@@ -148,14 +148,12 @@ class AuthController {
     }
 
 
-
     //TODO FIX LOGOUT FOR GOOGLE
     static async apiLogOut(req, res, next) {
         req.logout(function (err) {
             if (err) {
                 return next(err);
             }
-            const response = https.get("https://accounts.google.com/logout");
         })
         res.status(200).send("Succesfuly logout");
     }
