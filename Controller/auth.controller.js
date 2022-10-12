@@ -49,7 +49,7 @@ class AuthController {
             }
 
             const createdUser = await AuthService.CreateUser(user);
-            res.redirect("/login");
+            res.send(true);
         }
     }
     static async apiGetAuthUserById(req, res, next) {
@@ -61,7 +61,11 @@ class AuthController {
 
     static async apiGetUser(req,res,next) {
         console.log(req.user);
-        res.send(req.user);
+        if(req.user === null || req.user === undefined) {
+            res.send(null);
+        } else {
+            res.send(req.user);
+        }
     }
 
     static validateEmail(email) {
