@@ -54,7 +54,6 @@ class AuthController {
     }
     static async apiGetAuthUserById(req, res, next) {
         const userId = req.params.id;
-        console.log(userId);
         const user = await AuthService.findUserById(userId);
         res.send(user);
     }

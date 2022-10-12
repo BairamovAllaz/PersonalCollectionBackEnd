@@ -1,4 +1,5 @@
 const CollectionDatabase = require("../Models/Collection");
+const User = require("../Models/UserModel");
 class UserPageService {
 l
     static async GetAllUserColectionsById(id)  {
@@ -10,6 +11,21 @@ l
             });
             return response;
         } catch(err) {
+            console.log(err);
+        }
+    }
+
+
+    static async UpdateUserFields(keyf,field,id) {
+        try{
+            const response = await User.update(
+                {keyf : field},
+                {where: {
+                    id : id
+                }}
+            )
+            return response;
+        }catch(err) {
             console.log(err);
         }
     }
