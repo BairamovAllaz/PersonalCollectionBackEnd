@@ -14,6 +14,10 @@ class UserPageController {
             const val = req.body[key];
             UserPageService.UpdateUserFields(key,val,id);
         });
+        console.log(req.file)
+        if(req.file !== "" && req.file !== undefined) {
+           const re = await UserPageService.UpdateUserFields("image",req.file.filename,id);
+        }
         res.send("Update done");
     }
 

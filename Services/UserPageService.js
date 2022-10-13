@@ -4,11 +4,14 @@ class UserPageService {
 l
     static async GetAllUserColectionsById(id)  {
         try {
-            const response = await CollectionDatabase.findAll({
+            const response = await User.findAll({
                 where : {
-                    userId : id
-                }
-            });
+                    Id : id
+                },
+                include : [{
+                    model: CollectionDatabase
+                }]
+            })
             return response;
         } catch(err) {
             console.log(err);
@@ -19,7 +22,7 @@ l
     static async UpdateUserFields(keyf,field,id) {
         try{
             const response = await User.update(
-                {keyf : field},
+                {[keyf] : field},
                 {where: {
                     id : id
                 }}
