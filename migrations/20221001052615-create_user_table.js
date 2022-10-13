@@ -104,7 +104,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      name: {
+      item_name: {
         type : DataTypes.STRING,
         allowNull: false
       },

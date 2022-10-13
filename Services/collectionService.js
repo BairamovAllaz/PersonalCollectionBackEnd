@@ -73,8 +73,17 @@ class CollectionService {
         }
     }
 
-    static async getCollectionByUserId() {
-
+    static async GetCollectionFields(id) {
+        try {
+            const response = await Fields.findAll({
+                where : {
+                    collectionId : id
+                }
+            })
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
 
     }
 

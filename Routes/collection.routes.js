@@ -5,4 +5,5 @@ const CollectionController = require("../Controller/collection.controller");
 router.post("/create",multer.single("image"),CollectionController.apiCreate);
 router.get("/getTopics",CollectionController.apiGetAllTopics);
 router.get("/getTags",CollectionController.apiGetAllTags);
+router.get("/getFields/:collectionId",CollectionController.apiGetCollectionFields);
 module.exports = router;

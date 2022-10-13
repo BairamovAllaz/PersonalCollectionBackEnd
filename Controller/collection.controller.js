@@ -40,9 +40,10 @@ class CollectionController {
         res.status(200).send(response);
     }
 
-    static async apiGetCollectionByUserId(req,res,next) {
-
-
+    static async apiGetCollectionFields(req,res,next) {
+        const collectionId = req.params.collectionId;
+        const response = await CollectionService.GetCollectionFields(collectionId);
+        res.status(200).send(response);
     }
 
 }
