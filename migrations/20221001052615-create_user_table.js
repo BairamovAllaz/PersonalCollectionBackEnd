@@ -1,6 +1,6 @@
 'use strict';
 
-const {DataTypes} = require("sequelize");
+const {DataTypes, Sequelize} = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -127,6 +127,37 @@ module.exports = {
       }
     });
 
+
+    await queryInterface.createTable("itemTags",{
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull : false,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      tag_name : {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
+      itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'items',
+          key: 'Id',
+        },
+      },
+      isDelete : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      }
+    });
+
     await queryInterface.createTable("tags",{
       Id: {
         type: DataTypes.INTEGER,
@@ -137,13 +168,6 @@ module.exports = {
       name : {
         type : DataTypes.STRING,
         allowNull: false
-      },
-      itemId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'items',
-          key: 'Id',
-        },
       },
       isDelete : {
         type : DataTypes.BOOLEAN,

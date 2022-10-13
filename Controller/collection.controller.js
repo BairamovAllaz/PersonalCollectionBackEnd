@@ -35,6 +35,16 @@ class CollectionController {
         res.status(200).send(response);
     }
 
+    static async apiGetAllTags(req,res,next) {
+        const response = await CollectionService.getTags();
+        res.status(200).send(response);
+    }
+
+    static async apiGetCollectionByUserId(req,res,next) {
+
+
+    }
+
 }
 
 module.exports = CollectionController;

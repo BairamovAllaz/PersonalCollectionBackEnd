@@ -3,16 +3,23 @@ const database = require("../Configuration/connection")
 const {Col} = require("sequelize/lib/utils");
 const Item = require("./Item");
 
-const Tags = database.define('tags', {
+const ItemTags = database.define('itemTags', {
     Id: {
         type: DataTypes.INTEGER,
         allowNull : false,
         autoIncrement: true,
         primaryKey: true
     },
-    name : {
+    tag_name : {
         type : DataTypes.STRING,
         allowNull: false
+    },
+    itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'items',
+            key: 'Id',
+        },
     },
     isDelete : {
         type : DataTypes.BOOLEAN,
@@ -28,4 +35,4 @@ const Tags = database.define('tags', {
     timestamps: false
 });
 
-module.exports = Tags;
+module.exports = ItemTags;

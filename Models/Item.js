@@ -3,6 +3,7 @@ const database = require("../Configuration/connection")
 const {Col} = require("sequelize/lib/utils");
 const Collection = require("./Collection");
 const Tag = require("./Tags")
+const ItemTags = require("./ItemTags");
 
 
 const Item = database.define('items', {
@@ -12,7 +13,7 @@ const Item = database.define('items', {
         autoIncrement: true,
         primaryKey: true
     },
-    name: {
+    item_name : {
         type : DataTypes.STRING,
         allowNull: false
     },
@@ -37,6 +38,6 @@ const Item = database.define('items', {
     timestamps: false
 });
 
-Item.hasMany(Tag);
-Tag.belongsTo(Item);
+Item.hasMany(ItemTags);
+ItemTags.belongsTo(Item);
 module.exports = Item;

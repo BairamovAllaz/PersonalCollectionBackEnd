@@ -61,6 +61,20 @@ class CollectionService {
         }catch(err) {
             console.log(err);
         }
+    }
+
+
+    static async getTags() {
+        try{
+            const response = await Tags.findAll();
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+    static async getCollectionByUserId() {
+
 
     }
 
