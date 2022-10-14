@@ -108,7 +108,7 @@ module.exports = {
         type : DataTypes.STRING,
         allowNull: false
       },
-      colllectionId: {
+      collectionId: {
         type: DataTypes.INTEGER,
         references: {
           model: 'collections',

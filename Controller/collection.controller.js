@@ -54,6 +54,12 @@ class CollectionController {
         res.status(200).send("Fields created");
     }
 
+    static async apiGetAllCollectionItems(req,res,next) {
+        const {userId,collectionId} = req.params;
+        const response = await CollectionService.GetAllCollectionItems(userId,collectionId);
+        res.send(response);
+    }
+
 }
 
 module.exports = CollectionController;

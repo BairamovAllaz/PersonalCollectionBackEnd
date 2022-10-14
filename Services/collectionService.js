@@ -4,6 +4,8 @@ const Fields = require("../Models/Fields");
 const Tags = require("../Models/Tags");
 const Topics = require("../Models/Topics");
 const User = require("../Models/UserModel");
+const Collection = require("../Models/Collection");
+const Item = require("../Models/Item");
 
 class CollectionService {
     static async CreateCollectionTable(collection) {
@@ -96,6 +98,28 @@ class CollectionService {
                     Id : id, collectionId,
                 }}
             )
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
+    }
+
+    static async GetAllCollectionItems(userId,collectionId) {
+        try {
+            const response = await User.findAll({
+                where : {
+                    Id : userId
+                },
+                include : [{
+                    model : Collection,
+                    where : {
+                        Id : collectionId
+                    },
+                    include : [{
+                        model : Item
+                    }]
+                }]
+            })
             return response;
         }catch(err) {
             console.log(err);

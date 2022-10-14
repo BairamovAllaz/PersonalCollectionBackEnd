@@ -17,7 +17,7 @@ const Item = database.define('items', {
         type : DataTypes.STRING,
         allowNull: false
     },
-    colllectionId: {
+    collectionId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'collections',
