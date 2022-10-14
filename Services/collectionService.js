@@ -3,6 +3,7 @@ const ItemsTable = require("../Models/Item");
 const Fields = require("../Models/Fields");
 const Tags = require("../Models/Tags");
 const Topics = require("../Models/Topics");
+const User = require("../Models/UserModel");
 
 class CollectionService {
     static async CreateCollectionTable(collection) {
@@ -84,7 +85,21 @@ class CollectionService {
         }catch(err) {
             console.log(err);
         }
+    }
 
+
+    static async CreateCollectionFields(value,id,collectionId) {
+        try {
+                const response = await Fields.update(
+                {"field_value" : value},
+                {where: {
+                    Id : id, collectionId,
+                }}
+            )
+            return response;
+        }catch(err) {
+            console.log(err);
+        }
     }
 
 

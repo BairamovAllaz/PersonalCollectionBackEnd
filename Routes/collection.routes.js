@@ -6,4 +6,5 @@ router.post("/create",multer.single("image"),CollectionController.apiCreate);
 router.get("/getTopics",CollectionController.apiGetAllTopics);
 router.get("/getTags",CollectionController.apiGetAllTags);
 router.get("/getFields/:collectionId",CollectionController.apiGetCollectionFields);
+router.put("/addFieldsValue/:collectionId",CollectionController.apiUpdateCollectionFields);
 module.exports = router;
