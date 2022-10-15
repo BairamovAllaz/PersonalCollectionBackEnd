@@ -115,6 +115,10 @@ module.exports = {
           key: 'Id',
         },
       },
+      image : {
+        type : DataTypes.STRING,
+        allowNull: false
+      },
       isDelete : {
         type : DataTypes.BOOLEAN,
         defaultValue : false
@@ -219,12 +223,53 @@ module.exports = {
         type: Sequelize.DATE,
       }
     });
+
+
+    await queryInterface.createTable("itemFields", {
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      field_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      field_value: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      field_type: {
+        type: DataTypes.STRING,
+        allowNull: null,
+      },
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "items",
+          key: "Id",
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+    });
   },
+
   async down (queryInterface, Sequelize) {
     await queryInterface.dropTable("collections");
     await queryInterface.dropTable("items");
     await queryInterface.dropTable("tags");
     await queryInterface.dropTable("fields");
     await queryInterface.dropTable("users");
+    await queryInterface.dropTable("itemFields");
   }
 };

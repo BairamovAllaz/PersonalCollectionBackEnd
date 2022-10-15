@@ -46,13 +46,6 @@ class CollectionController {
         res.status(200).send(response);
     }
 
-    static async apiUpdateCollectionFields(req,res,next) {
-        const fields = req.body;
-        for (const element of fields) {
-            const response = await CollectionService.CreateCollectionFields(element.field_value,element.Id,element.collectionId);
-        }
-        res.status(200).send("Fields created");
-    }
 
     static async apiGetAllCollectionItems(req,res,next) {
         const {userId,collectionId} = req.params;

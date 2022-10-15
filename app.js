@@ -49,9 +49,11 @@ require("./Configuration/passportconfig")(passport);
 const authRoute = require("./Routes/auth.routes");
 const controllerRoutes = require("./Routes/collection.routes");
 const userpageRoutes = require("./Routes/userpage.routes");
+const itemRoutes = require("./Routes/item.routes");
 app.use("/v1",authRoute);
 app.use("/collection",controllerRoutes);
 app.use("/userpage",userpageRoutes)
+app.use("/items",itemRoutes)
 
 app.get("/",(req,res) => {
     console.log(req.user);

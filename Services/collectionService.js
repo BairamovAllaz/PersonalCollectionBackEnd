@@ -104,28 +104,6 @@ class CollectionService {
         }
     }
 
-    static async GetAllCollectionItems(userId,collectionId) {
-        try {
-            const response = await User.findAll({
-                where : {
-                    Id : userId
-                },
-                include : [{
-                    model : Collection,
-                    where : {
-                        Id : collectionId
-                    },
-                    include : [{
-                        model : Item
-                    }]
-                }]
-            })
-            return response;
-        }catch(err) {
-            console.log(err);
-        }
-    }
-
 
 }
 

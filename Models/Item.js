@@ -1,10 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const database = require("../Configuration/connection")
-const {Col} = require("sequelize/lib/utils");
-const Collection = require("./Collection");
-const Tag = require("./Tags")
 const ItemTags = require("./ItemTags");
-
+const ItemFields = require("./ItemFields")
 
 const Item = database.define('items', {
     Id: {
@@ -24,6 +21,10 @@ const Item = database.define('items', {
             key: 'Id',
         },
     },
+    image : {
+        type : DataTypes.STRING,
+        allowNull: false
+    },
     isDelete : {
         type : DataTypes.BOOLEAN,
         defaultValue : false
@@ -40,4 +41,6 @@ const Item = database.define('items', {
 
 Item.hasMany(ItemTags);
 ItemTags.belongsTo(Item);
+Item.hasMany(ItemFields);
+ItemFields.belongsTo(Item);
 module.exports = Item;
