@@ -1,6 +1,8 @@
 const Items = require("../Models/Item");
 const ItemTags = require("../Models/ItemTags");
 const ItemField = require("../Models/ItemFields");
+const User = require("../Models/UserModel");
+const Collection = require("../Models/Collection");
 class ItemService {
   static async GetAllCollectionItems(userId, collectionId) {
     try {
@@ -14,11 +16,6 @@ class ItemService {
             where: {
               Id: collectionId,
             },
-            include: [
-              {
-                model: Item,
-              },
-            ],
           },
         ],
       });
