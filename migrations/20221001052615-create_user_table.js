@@ -1,229 +1,230 @@
-'use strict';
+"use strict";
 
-const {DataTypes, Sequelize} = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable("users",{
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("users", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       firstName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       lastName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull : false
+        allowNull: false,
       },
-      image : {
+      image: {
         type: DataTypes.STRING,
-        allowNull : true
+        allowNull: true,
       },
-      userRole : {
-          type: DataTypes.BOOLEAN,
-          default : false,
-          allowNull : false
+      userRole: {
+        type: DataTypes.BOOLEAN,
+        default: false,
+        allowNull: false,
       },
-      authType : {
-        type : DataTypes.STRING,
-        allowNull : false
+      authType: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      isBlocked: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
-    await queryInterface.createTable("collections",{
+    await queryInterface.createTable("collections", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
-      name : {
-        type : DataTypes.STRING,
-        allowNull: false
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      description : {
-        type : DataTypes.TEXT,
-        allowNull : false
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
       },
-      about : {
-        type : DataTypes.STRING,
-        allowNull : false,
+      about: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      topic : {
-        type : DataTypes.STRING,
-        allowNull : false
+      topic: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      userId : {
+      userId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'users',
-          key: 'Id',
-        }
+          model: "users",
+          key: "Id",
+        },
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      image : {
-        type : DataTypes.STRING,
-        allowNull : false
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
 
-    await queryInterface.createTable("items",{
+    await queryInterface.createTable("items", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       item_name: {
-        type : DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       collectionId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'collections',
-          key: 'Id',
+          model: "collections",
+          key: "Id",
         },
       },
-      image : {
-        type : DataTypes.STRING,
-        allowNull: false
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
 
-
-    await queryInterface.createTable("itemTags",{
+    await queryInterface.createTable("itemTags", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
-      tag_name : {
-        type : DataTypes.STRING,
-        allowNull: false
+      tag_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       itemId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'items',
-          key: 'Id',
+          model: "items",
+          key: "Id",
         },
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
 
-    await queryInterface.createTable("tags",{
+    await queryInterface.createTable("tags", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
-      name : {
-        type : DataTypes.STRING,
-        allowNull: false
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
 
-
-    await queryInterface.createTable("fields",{
+    await queryInterface.createTable("fields", {
       Id: {
         type: DataTypes.INTEGER,
-        allowNull : false,
+        allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
-      field_name : {
-        type : DataTypes.STRING,
-        allowNull: false
+      field_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       field_value: {
         type: DataTypes.STRING,
-        allowNull : false
+        allowNull: false,
       },
-      field_type : {
-        type : DataTypes.STRING,
-        allowNull : null
+      field_type: {
+        type: DataTypes.STRING,
+        allowNull: null,
       },
-      isDelete : {
-        type : DataTypes.BOOLEAN,
-        defaultValue : false
+      isDelete: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      collectionId : {
+      collectionId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'collections',
-          key: 'Id',
-        }
+          model: "collections",
+          key: "Id",
+        },
       },
       createdAt: {
         type: Sequelize.DATE,
       },
       updatedAt: {
         type: Sequelize.DATE,
-      }
+      },
     });
-
 
     await queryInterface.createTable("itemFields", {
       Id: {
@@ -262,14 +263,101 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    await queryInterface.createTable("itemLikes", {
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "items",
+          key: "Id",
+        },
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "users",
+          key: "Id",
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+    });
+
+    await queryInterface.createTable("collectionLikes", {
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      collectionId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "collections",
+          key: "Id",
+        },
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "users",
+          key: "Id",
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+    });
+
+    await queryInterface.createTable("itemComments", {
+      Id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      message: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      itemId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "items",
+          key: "Id",
+        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
+    });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("collections");
     await queryInterface.dropTable("items");
     await queryInterface.dropTable("tags");
     await queryInterface.dropTable("fields");
     await queryInterface.dropTable("users");
     await queryInterface.dropTable("itemFields");
-  }
+    await queryInterface.dropTable("itemLikes");
+    await queryInterface.dropTable("collectionLikes");
+    await queryInterface.dropTable("itemComments");
+  },
 };
