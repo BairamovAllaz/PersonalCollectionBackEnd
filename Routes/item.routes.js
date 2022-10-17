@@ -13,4 +13,10 @@ router.get(
   ItemController.apiGetAllCollectionItems
 );
 
+router.post(
+  "/addLikeItem",
+  ItemController.apiItemAddLike
+);
+router.get("/ItemDislike/:userId/:itemId", ItemController.apiItemDislike);
+
 module.exports = router;

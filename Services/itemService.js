@@ -4,6 +4,8 @@ const ItemField = require("../Models/ItemFields");
 const User = require("../Models/UserModel");
 const Collection = require("../Models/Collection");
 const Item = require("../Models/Item");
+const ItemLikes = require("../Models/ItemLikes")
+const CollectionLikes = require("../Models/collectionLikes");
 class ItemService {
   static async GetAllCollectionItems(userId, collectionId) {
     try {
@@ -24,7 +26,16 @@ class ItemService {
                   {
                     model: ItemField,
                   },
+                  {
+                    model: ItemTags,
+                  },
+                  {
+                    model: ItemLikes,
+                  },
                 ],
+              },
+              {
+                model: CollectionLikes,
               },
             ],
           },
@@ -83,5 +94,33 @@ class ItemService {
       console.log(err);
     }
   }
+
+  static async ItemAddLike(itemId, userId) {
+    try {
+      const like = {
+        itemId,
+        userId,
+      };
+      const res = await ItemLikes.create(like);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async ItemDislike(itemId,userId) {
+    try {
+      const res = ItemLikes.destroy({
+        where : { 
+          itemId, 
+          userId
+        }
+      })
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 }
 module.exports = ItemService;
