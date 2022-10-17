@@ -47,6 +47,24 @@ class CollectionService {
     }
   }
 
+  static async GetCollectionById(collectionId) {
+    try {
+      const response = await Collection.findAll({
+        where: {
+          Id: collectionId,
+        },
+        include: [
+          {
+            model: Item,
+          },
+        ],
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   static async getReq() {
     const res = await CollectionTable.findAll({
       include: [
@@ -130,6 +148,38 @@ class CollectionService {
         },
       });
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async DeleteCollection(collectionId) {
+    try {
+      const res = Collection.update(
+        { isDelete: true },
+        {
+          where: {
+            Id: collectionId,
+          },
+        }
+      );
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async UpdateCollection(keyf, field, collectionId) {
+    try {
+      const response = await Collection.update(
+        { [keyf]: field },
+        {
+          where: {
+            id: collectionId,
+          },
+        }
+      );
+      return response;
     } catch (err) {
       console.log(err);
     }

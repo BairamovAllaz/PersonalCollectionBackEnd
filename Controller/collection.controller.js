@@ -83,6 +83,42 @@ class CollectionController {
       console.log(err);
     }
   }
+
+  static async apiCollectionDelete(req, res, next) {
+    try {
+      const { collectionId } = req.params;
+      const response = await CollectionService.DeleteCollection(collectionId);
+      res.send("Deleted");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async apiGetCollectionById(req, res, next) {
+    try {
+      const { collectionId } = req.params;
+      const response = await CollectionService.GetCollectionById(collectionId);
+      res.send(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async apiUpdateCollection(req, res, next) {
+    const id = req.params.collectionId;
+    Object.keys(req.body).forEach(function (key) {
+      const val = req.body[key];
+      CollectionService.UpdateCollection(key, val, id);
+    });
+    if (req.file !== "" && req.file !== undefined) {
+      const re = await CollectionService.UpdateCollection(
+        "image",
+        req.file.filename,
+        id
+      );
+    }
+    res.send("Update done");
+  }
 }
 
 module.exports = CollectionController;

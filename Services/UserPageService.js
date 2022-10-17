@@ -18,7 +18,6 @@ l
         }
     }
 
-
     static async UpdateUserFields(keyf,field,id) {
         try{
             const response = await User.update(

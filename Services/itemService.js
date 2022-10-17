@@ -4,7 +4,7 @@ const ItemField = require("../Models/ItemFields");
 const User = require("../Models/UserModel");
 const Collection = require("../Models/Collection");
 const Item = require("../Models/Item");
-const ItemLikes = require("../Models/ItemLikes")
+const ItemLikes = require("../Models/ItemLikes");
 const CollectionLikes = require("../Models/collectionLikes");
 class ItemService {
   static async GetAllCollectionItems(userId, collectionId) {
@@ -46,7 +46,7 @@ class ItemService {
       console.log(err);
     }
   }
-
+  
   static async CreateItemWithName(itemName, collectionId, image) {
     try {
       const item = {
@@ -108,19 +108,18 @@ class ItemService {
     }
   }
 
-  static async ItemDislike(itemId,userId) {
+  static async ItemDislike(itemId, userId) {
     try {
       const res = ItemLikes.destroy({
-        where : { 
-          itemId, 
-          userId
-        }
-      })
+        where: {
+          itemId,
+          userId,
+        },
+      });
       return res;
     } catch (err) {
       console.log(err);
     }
   }
-
 }
 module.exports = ItemService;
