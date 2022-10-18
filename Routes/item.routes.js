@@ -12,8 +12,9 @@ router.get(
   "/getAllItems/:userId/:collectionId",
   ItemController.apiGetAllCollectionItems
 );
-router.get("/getAllItemsFileds/:itemId", ItemController.apiGetItemFields);
-
+router.get("/getItemById/:itemId", ItemController.apiGetItemsById);
+router.get("/getAllItemsFileds/:itemId", ItemController.apiGetItemsFields);
+router.put("/updateItemFields/:itemId",multer.single("image"), ItemController.ApiUpdateItemFields);
 router.post("/addLikeItem", ItemController.apiItemAddLike);
 router.delete("/DeleteItemById/:itemId", ItemController.ApiDeleteItemById);
 router.get("/ItemDislike/:userId/:itemId", ItemController.apiItemDislike);

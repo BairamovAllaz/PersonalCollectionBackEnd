@@ -25,7 +25,7 @@ class CollectionController {
         if (field_name === "" || field_type === "") {
           isCreate = false;
           console.log("not created field table");
-        }
+        }               
       });
     }
     if (isCreate) {

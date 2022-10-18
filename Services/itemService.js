@@ -50,17 +50,25 @@ class ItemService {
     }
   }
 
-  static async GetItemFields(itemId) {
+  static async GetItemsById(itemId) {
     try {
       const response = Item.findAll({
         where: {
           Id: itemId,
         },
-        include: [
-          {
-            model: ItemField,
-          },
-        ],
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async GetItemsFields(itemId) {
+    try {
+      const response = ItemField.findAll({
+        where: {
+          itemId: itemId,
+        },
       });
       return response;
     } catch (err) {
@@ -154,6 +162,39 @@ class ItemService {
         }
       );
       return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async UpdateItemFields(itemId, field_name, field_value) {
+    try {
+      const response = await ItemField.update(
+        { field_value: field_value },
+        {
+          where: {
+            itemId: itemId,
+            field_name: field_name,
+          },
+        }
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async UpdateItem(itemId, field_name, field_value) {
+    try {
+      const response = await Item.update(
+        { [field_name]: field_value },
+        {
+          where: {
+            Id: itemId,
+          },
+        }
+      );
+      return response;
     } catch (err) {
       console.log(err);
     }
