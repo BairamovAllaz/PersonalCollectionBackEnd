@@ -51,6 +51,16 @@ class ItemController {
     res.send(response);
   }
 
+  static async apiGetCollectionItemById(req, res, next) {
+    const { userId, collectionId,itemId } = req.params;
+    const response = await ItemService.GetCollectionItemById(
+      userId,
+      collectionId,
+      itemId
+    );
+    res.send(response);
+  }
+
   static async apiGetItemsById(req, res, next) {
     const { itemId } = req.params;
     const response = await ItemService.GetItemsById(itemId);

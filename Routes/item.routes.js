@@ -12,6 +12,10 @@ router.get(
   "/getAllItems/:userId/:collectionId",
   ItemController.apiGetAllCollectionItems
 );
+router.get(
+  "/getItemsById/:userId/:collectionId/:itemId",
+  ItemController.apiGetCollectionItemById
+);
 router.get("/getItemById/:itemId", ItemController.apiGetItemsById);
 router.get("/getAllItemsFileds/:itemId", ItemController.apiGetItemsFields);
 router.put("/updateItemFields/:itemId",multer.single("image"), ItemController.ApiUpdateItemFields);

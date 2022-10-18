@@ -50,6 +50,50 @@ class ItemService {
     }
   }
 
+  static async GetCollectionItemById(userId, collectionId, itemId) {
+    try {
+      const response = await User.findAll({
+        where: {
+          Id: userId,
+        },
+        include: [
+          {
+            model: Collection,
+            where: {
+              Id: collectionId,
+            },
+            include: [
+              {
+                model: Item,
+                where: {
+                  Id: itemId,
+                  isDelete: false,
+                },
+                include: [
+                  {
+                    model: ItemField,
+                  },
+                  {
+                    model: ItemTags,
+                  },
+                  {
+                    model: ItemLikes,
+                  },
+                ],
+              },
+              {
+                model: CollectionLikes,
+              },
+            ],
+          },
+        ],
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   static async GetItemsById(itemId) {
     try {
       const response = Item.findAll({
