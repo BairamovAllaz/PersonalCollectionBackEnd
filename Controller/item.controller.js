@@ -51,17 +51,33 @@ class ItemController {
     res.send(response);
   }
 
+  static async apiGetItemFields(req, res, next) {
+    const { itemId } = req.params;
+    const response = await ItemService.GetItemFields(itemId);
+    res.send(response);
+  }
+
   static async apiItemAddLike(req, res, next) {
     const { userId, itemId } = req.body;
     const response = await ItemService.ItemAddLike(itemId, userId);
     res.send("Like added");
   }
-  
-  static async apiItemDislike(req,res,next) {
+
+  static async apiItemDislike(req, res, next) {
     try {
-       const { userId, itemId } = req.params;
-       const response = await ItemService.ItemDislike(itemId, userId);
-       res.send("DisLike");
+      const { userId, itemId } = req.params;
+      const response = await ItemService.ItemDislike(itemId, userId);
+      res.send("DisLike");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async ApiDeleteItemById(req, res, next) {
+    try {
+      const { itemId } = req.params;
+      const response = await ItemService.DeleteItemById(itemId);
+      res.send("Deleted");
     } catch (err) {
       console.log(err);
     }

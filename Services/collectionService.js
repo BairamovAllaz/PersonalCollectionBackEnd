@@ -56,6 +56,9 @@ class CollectionService {
         include: [
           {
             model: Item,
+            where : { 
+              isDelete : false
+            }
           },
         ],
       });

@@ -12,11 +12,10 @@ router.get(
   "/getAllItems/:userId/:collectionId",
   ItemController.apiGetAllCollectionItems
 );
+router.get("/getAllItemsFileds/:itemId", ItemController.apiGetItemFields);
 
-router.post(
-  "/addLikeItem",
-  ItemController.apiItemAddLike
-);
+router.post("/addLikeItem", ItemController.apiItemAddLike);
+router.delete("/DeleteItemById/:itemId", ItemController.ApiDeleteItemById);
 router.get("/ItemDislike/:userId/:itemId", ItemController.apiItemDislike);
 
 module.exports = router;

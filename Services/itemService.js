@@ -22,6 +22,9 @@ class ItemService {
             include: [
               {
                 model: Item,
+                where: {
+                  isDelete: false,
+                },
                 include: [
                   {
                     model: ItemField,
@@ -46,7 +49,25 @@ class ItemService {
       console.log(err);
     }
   }
-  
+
+  static async GetItemFields(itemId) {
+    try {
+      const response = Item.findAll({
+        where: {
+          Id: itemId,
+        },
+        include: [
+          {
+            model: ItemField,
+          },
+        ],
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   static async CreateItemWithName(itemName, collectionId, image) {
     try {
       const item = {
@@ -116,6 +137,22 @@ class ItemService {
           userId,
         },
       });
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async DeleteItemById(itemId) {
+    try {
+      const res = Item.update(
+        { isDelete: true },
+        {
+          where: {
+            Id: itemId,
+          },
+        }
+      );
       return res;
     } catch (err) {
       console.log(err);
