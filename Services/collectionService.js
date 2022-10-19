@@ -56,6 +56,7 @@ class CollectionService {
         include: [
           {
             model: Item,
+            required : false,
             where : { 
               isDelete : false
             }
@@ -106,6 +107,7 @@ class CollectionService {
           collectionId: id,
         },
       });
+      console.log(response);
       return response;
     } catch (err) {
       console.log(err);
