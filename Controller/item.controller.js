@@ -48,6 +48,7 @@ class ItemController {
       userId,
       collectionId
     );
+    console.log(response);
     res.send(response);
   }
 

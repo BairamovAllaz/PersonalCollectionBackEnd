@@ -6,6 +6,7 @@ const Collection = require("../Models/Collection");
 const Item = require("../Models/Item");
 const ItemLikes = require("../Models/ItemLikes");
 const CollectionLikes = require("../Models/collectionLikes");
+const ItemComments = require("../Models/itemComments");
 class ItemService {
   static async GetAllCollectionItems(userId, collectionId) {
     try {
@@ -25,6 +26,7 @@ class ItemService {
                 where: {
                   isDelete: false,
                 },
+                required : false,
                 include: [
                   {
                     model: ItemField,
@@ -78,6 +80,9 @@ class ItemService {
                   },
                   {
                     model: ItemLikes,
+                  },
+                  {
+                    model: ItemComments,
                   },
                 ],
               },

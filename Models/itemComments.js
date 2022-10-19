@@ -21,6 +21,18 @@ const ItemComments = database.define(
         key: "Id",
       },
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    userFirstname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    userPhoto: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     createdAt: {
       type: Sequelize.DATE,
     },
