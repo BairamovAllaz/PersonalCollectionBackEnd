@@ -1,5 +1,5 @@
-const express = require("express");
-const app = express();
+const app = require("express")();
+const server = require("http").createServer(app);
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const session = require("express-session");
@@ -36,7 +36,25 @@ require("./Configuration/passportconfig")(passport);
 //TODO FIX OAUTH2 GOOGLE
 //require("./Configuration/GoogleAuthConfig")(passport);
 
-///
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+io.on("connection", socket => {
+  console.log("A user is connected");
+
+  socket.on("message", message => {
+    console.log(`message from ${socket.id} : ${message}`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`socket ${socket.id} disconnected`);
+  });
+});
+module.exports = io;
+
 
 //INIT ROUTES
 
@@ -53,5 +71,5 @@ app.get("/",(req,res) => {
     console.log(req.user);
     res.send("Hello user");
 })
-app.use("/uploads",express.static("uploads"))
-module.exports = app;
+app.use("/uploads",require("express").static("uploads"))
+module.exports = server;

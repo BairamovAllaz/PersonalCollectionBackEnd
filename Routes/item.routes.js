@@ -22,5 +22,6 @@ router.put("/updateItemFields/:itemId",multer.single("image"), ItemController.Ap
 router.post("/addLikeItem", ItemController.apiItemAddLike);
 router.delete("/DeleteItemById/:itemId", ItemController.ApiDeleteItemById);
 router.get("/ItemDislike/:userId/:itemId", ItemController.apiItemDislike);
-
+router.get("/GetItemComments/:itemId", ItemController.apiGetItemComments);
+router.post("/AddComment", ItemController.apiAddComment);
 module.exports = router;

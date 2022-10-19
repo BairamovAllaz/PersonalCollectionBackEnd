@@ -1,5 +1,5 @@
 const ItemService = require("../Services/itemService");
-
+const io = require("../app");
 class ItemController {
   static async apiCreateItemWithFields(req, res, next) {
     const collectionId = req.params.collectionId;
@@ -53,7 +53,7 @@ class ItemController {
   }
 
   static async apiGetCollectionItemById(req, res, next) {
-    const { userId, collectionId,itemId } = req.params;
+    const { userId, collectionId, itemId } = req.params;
     const response = await ItemService.GetCollectionItemById(
       userId,
       collectionId,
@@ -95,6 +95,35 @@ class ItemController {
       const { itemId } = req.params;
       const response = await ItemService.DeleteItemById(itemId);
       res.send("Deleted");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async apiGetItemComments(req, res, next) {
+    try {
+      const { itemId } = req.params;
+      const response = await ItemService.GetItemComments(itemId);
+      res.send(response);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  static async apiAddComment(req, res, next) {
+    try {
+      const comment = {
+        itemId: req.body.itemId,
+        message: req.body.message,
+        userId: req.body.userId,
+        userFirstname: req.body.userFirstname,
+        userPhoto: req.body.userPhoto,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      const response = await ItemService.AddComment(comment);
+      const newo = await ItemService.GetItemComments(comment.itemId);
+      io.emit("comments", newo);
+      res.send("comment added!");
     } catch (err) {
       console.log(err);
     }

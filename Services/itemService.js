@@ -26,7 +26,7 @@ class ItemService {
                 where: {
                   isDelete: false,
                 },
-                required : false,
+                required: false,
                 include: [
                   {
                     model: ItemField,
@@ -210,6 +210,29 @@ class ItemService {
           },
         }
       );
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async GetItemComments(itemId) {
+    try {
+      const res = ItemComments.findAll({
+        where: {
+          itemId: itemId,
+        },
+        order: [["createdAt", "DESC"]],
+      });
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+  static async AddComment(comment) {
+    try {
+      const res = ItemComments.create(comment);
       return res;
     } catch (err) {
       console.log(err);
