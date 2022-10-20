@@ -62,11 +62,12 @@ const authRoute = require("./Routes/auth.routes");
 const controllerRoutes = require("./Routes/collection.routes");
 const userpageRoutes = require("./Routes/userpage.routes");
 const itemRoutes = require("./Routes/item.routes");
+const adminRoutes = require("./Routes/admin.routes");
 app.use("/v1",authRoute);
 app.use("/collection",controllerRoutes);
 app.use("/userpage",userpageRoutes)
 app.use("/items",itemRoutes)
-
+app.use("/admin",adminRoutes);
 app.get("/",(req,res) => {
     console.log(req.user);
     res.send("Hello user");
