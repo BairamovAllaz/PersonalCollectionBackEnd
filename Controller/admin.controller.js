@@ -22,6 +22,17 @@ class AdminController {
     const response = await AdminService.RemoveFromAdmin(userId);
     res.status(200).send("Remove user from admin done");
   }
+
+  static async apiGetDeletedUsers(req, res, next) {
+    const response = await AdminService.GetDeletedUsers();
+    res.status(200).send(response);
+  }
+
+  static async apiReturnUserById(req, res, next) {
+    const {userId} = req.params;
+    const response = await AdminService.ReturnUserById(userId);
+    res.status(200).send("Ok");
+  }
 }
 
 module.exports = AdminController;

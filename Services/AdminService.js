@@ -58,5 +58,26 @@ class AdminService {
       console.log(err);
     }
   }
+
+  static async GetDeletedUsers() {
+    try {
+      const response = await User.findAll({ where: { isDelete: true } });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  static async ReturnUserById(userId) {
+    try {
+      const response = await User.update(
+        { isDelete: false },
+        { where: { isDelete: true } }
+      );
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 module.exports = AdminService;
