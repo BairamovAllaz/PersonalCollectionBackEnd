@@ -4,5 +4,7 @@ const multer = require("../Configuration/uploader");
 const AdminController = require("../Controller/admin.controller");
 
 router.get("/getAllUsers",AdminController.apiGetAllUsers);
-
+router.delete("/DeleteUserById/:userId",AdminController.apiDeleteUserById);
+router.put("/updateToAdmin/:userId", AdminController.apiUpdateUserToAdmin);
+router.put("/RemoveFromAdmin/:userId", AdminController.apiRemoveFromAdmin);
 module.exports = router;

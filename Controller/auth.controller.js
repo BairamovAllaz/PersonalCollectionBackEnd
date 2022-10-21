@@ -12,7 +12,7 @@ class AuthController {
         passport.authenticate('local', (err, user, info) => {
             if (err) throw err;
             if (!user) {
-                res.status(501).send("User dont exsist")
+                res.status(501).send("User dont exsist or Blocked by Admins")
             } else {
                 req.login(user, (err) => {
                     if (err) throw err;

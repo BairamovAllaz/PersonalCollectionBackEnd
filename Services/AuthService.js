@@ -55,7 +55,9 @@ class AuthService{
             }
             const response = await database.findOne({
                 where : {
-                    email : email
+                    email : email,
+                    isDelete : false, 
+                    isBlocked : false
                 }
             })
             return response;
