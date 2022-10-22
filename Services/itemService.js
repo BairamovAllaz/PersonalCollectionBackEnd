@@ -36,6 +36,11 @@ class ItemService {
                   },
                   {
                     model: ItemLikes,
+                    required: false,
+                  },
+                  {
+                    model: ItemComments,
+                    required: false,
                   },
                 ],
               },
