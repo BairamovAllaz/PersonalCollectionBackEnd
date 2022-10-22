@@ -57,7 +57,6 @@ class AuthService{
                 where : {
                     email : email,
                     isDelete : false, 
-                    isBlocked : false
                 }
             })
             return response;

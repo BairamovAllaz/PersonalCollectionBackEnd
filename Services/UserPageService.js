@@ -1,4 +1,6 @@
 const CollectionDatabase = require("../Models/Collection");
+const CollectionLikes = require("../Models/collectionLikes");
+const Item = require("../Models/Item");
 const User = require("../Models/UserModel");
 class UserPageService {
   l;
@@ -15,6 +17,10 @@ class UserPageService {
             where: {
               isDelete: 0,
             },
+            include: [
+              { model: CollectionLikes },
+              { model: Item, where: { isDelete: false } },
+            ],
           },
         ],
       });
@@ -43,9 +49,9 @@ class UserPageService {
   static async GetUserById(userId) {
     try {
       const response = await User.findAll({
-        where:  { 
-            Id : userId
-        }
+        where: {
+          Id: userId,
+        },
       });
       return response;
     } catch (err) {
