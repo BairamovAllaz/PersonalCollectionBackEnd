@@ -34,7 +34,7 @@ class AuthController {
         if (!user) {
             const salt = 10;
             const hashpassword = await bcrypt.hash(req.body.password, salt);
-            let image = req.file === undefined ? "https://img.favpng.com/6/2/21/avatar-computer-icons-desktop-wallpaper-user-download-png-favpng-2pedaUPvwNA2wvvLmDqLZHe3K.jpg" : req.file.filename;
+            let image = req.file.path; 
 
             const user = {
                 firstName: req.body.firstName,

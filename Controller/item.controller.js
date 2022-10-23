@@ -6,7 +6,7 @@ class ItemController {
     const fields = JSON.parse(req.body.fields);
     const selectedTags = JSON.parse(req.body.selectedTags);
     const itemName = req.body.itemName;
-    const image = req.file.filename;
+    const image = req.file.path;
 
     const ItemId = await ItemController.CreateItem(
       itemName,
@@ -140,11 +140,7 @@ class ItemController {
         );
       });
       if (req.file !== "" && req.file !== undefined) {
-        const re = await ItemService.UpdateItem(
-          itemId,
-          "image",
-          req.file.filename
-        );
+        const re = await ItemService.UpdateItem(itemId, "image", req.file.path);
       }
       if (req.body.item_name.length > 0) {
         const re2 = await ItemService.UpdateItem(

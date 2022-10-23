@@ -2,10 +2,7 @@ const CollectionService = require("../Services/collectionService");
 
 class CollectionController {
   static async apiCreate(req, res, next) {
-    let image =
-      req.file === undefined
-        ? "http://www.engageconsultants.com/wp-content/uploads/2016/06/question-mark.jpg"
-        : req.file.filename;
+    let image = req.file.path;
     const newCollection = {
       name: req.body.name,
       description: req.body.description,
@@ -113,7 +110,7 @@ class CollectionController {
     if (req.file !== "" && req.file !== undefined) {
       const re = await CollectionService.UpdateCollection(
         "image",
-        req.file.filename,
+        req.file.path,
         id
       );
     }

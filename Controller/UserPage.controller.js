@@ -23,7 +23,7 @@ class UserPageController {
     if (req.file !== "" && req.file !== undefined) {
       const re = await UserPageService.UpdateUserFields(
         "image",
-        req.file.filename,
+        req.file.path,
         id
       );
     }
