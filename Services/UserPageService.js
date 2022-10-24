@@ -15,11 +15,14 @@ class UserPageService {
             model: CollectionDatabase,
             required: false,
             where: {
-              isDelete: 0,
+              isDelete: false,
             },
             include: [
-              { model: CollectionLikes },
-              { model: Item, where: { isDelete: false } },
+              { model: CollectionLikes,required : false },
+              { 
+                model: Item,
+                required: false, 
+                where: { isDelete: false } },
             ],
           },
         ],

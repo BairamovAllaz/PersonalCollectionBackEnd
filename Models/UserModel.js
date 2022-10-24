@@ -60,4 +60,5 @@ const User = database.define(
   }
 );
 User.hasMany(Collection);
+Collection.belongsTo(User);
 module.exports = User;
