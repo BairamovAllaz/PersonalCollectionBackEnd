@@ -1,6 +1,8 @@
 const {Sequelize} = require("sequelize");
-const database = new Sequelize("personalcollection","root", "Yunona701701",
-    {host: "localhost", dialect: "mysql"}
+const dotenv = require("dotenv");
+dotenv.config();
+const database = new Sequelize(process.env.DATABASE,process.env.USER, process.env.DATABASE_PASSWORD,
+    {host: process.env.HOST, dialect: "mysql"}
 );
 module.exports = database;
 database.authenticate().then(() => {
