@@ -13,11 +13,11 @@ dotenv.config();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(bodyParser.json({limit : '50mb'}));
 app.use(
-    cors({
-        credentials: true,
-        origin: "http://localhost:3000",
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    })
+  cors({
+    credentials: true,
+    origin: process.env.SOCKET_CLIENT,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
 );
 app.use(
     session({
@@ -38,7 +38,7 @@ require("./Configuration/passportconfig")(passport);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.SOCKET_CLIENT,
   },
 });
 
