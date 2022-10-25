@@ -10,8 +10,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 //MIDDLEWARES
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
-app.use(bodyParser.json({limit : '50mb'}));
 app.use(
   cors({
     credentials: true,
@@ -19,12 +17,15 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
+app.use(bodyParser.json({ limit: "50mb" }));
+
 app.use(
-    session({
-        secret: "secretcode",
-        resave: true,
-        saveUninitialized: true,
-    })
+  session({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
 );
 app.use(cookieParser("secretcode"));
 
@@ -55,7 +56,6 @@ io.on("connection", socket => {
 });
 module.exports = io;
 
-
 //INIT ROUTES
 
 const authRoute = require("./Routes/auth.routes");
@@ -63,16 +63,16 @@ const controllerRoutes = require("./Routes/collection.routes");
 const userpageRoutes = require("./Routes/userpage.routes");
 const itemRoutes = require("./Routes/item.routes");
 const adminRoutes = require("./Routes/admin.routes");
-const homeRoutes = require("./Routes/home.routes")
-app.use("/v1",authRoute);
-app.use("/collection",controllerRoutes);
-app.use("/userpage",userpageRoutes)
-app.use("/items",itemRoutes)
-app.use("/admin",adminRoutes);
-app.use("/home",homeRoutes);
-app.get("/",(req,res) => {
-    console.log(req.user);
-    res.send("Hello user");
-})
-app.use("/uploads",require("express").static("uploads"))
+const homeRoutes = require("./Routes/home.routes");
+app.use("/v1", authRoute);
+app.use("/collection", controllerRoutes);
+app.use("/userpage", userpageRoutes);
+app.use("/items", itemRoutes);
+app.use("/admin", adminRoutes);
+app.use("/home", homeRoutes);
+app.get("/", (req, res) => {
+  console.log(req.user);
+  res.send("Hello user");
+});
+app.use("/uploads", require("express").static("uploads"));
 module.exports = server;
