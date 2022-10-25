@@ -10,14 +10,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 //MIDDLEWARES
-app.all("/*", function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://main--sprightly-boba-3c9eab.netlify.app"
-  );
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(
   cors({
     credentials: true,
@@ -25,9 +19,6 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   })
 );
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
-app.use(bodyParser.json({ limit: "50mb" }));
-
 app.use(
   session({
     secret: "secretcode",
