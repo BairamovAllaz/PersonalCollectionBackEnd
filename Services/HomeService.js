@@ -4,6 +4,7 @@ const Item = require("../Models/Item");
 const ItemLikes = require("../Models/ItemLikes");
 const ItemTags = require("../Models/ItemTags");
 const User = require("../Models/UserModel");
+const { Sequelize } = require("sequelize");
 class HomeService {
   static async GetLargestCollections() {
     try {
@@ -37,34 +38,41 @@ class HomeService {
 
   static async GetItemsByDate() {
     try {
-      const response = await User.findAll({
+      const response = await Item.findAll({
+        where: {
+          isDelete: false,
+        },
+        order : [['createdAt','DESC']],
         include: [
           {
             model: Collection,
-            required: false,
-            include: [
-              {
-                model: Item,
-                required: false,
-                include: [
-                  {
-                    model: ItemLikes,
-                    required: false,
-                  },
-                  {
-                    model: ItemTags,
-                  },
-                ],
-              },
-            ],
-            order: [[{ model: Item, as: "items" }, "createdAt", "DESC"]],
+            include: [{ model: User }],
           },
+          {
+            model : ItemLikes,
+            required : false
+          },
+          {
+            model : ItemTags
+          }
         ],
       });
       return response;
     } catch (err) {
       console.log(err);
     }
+  }
+
+  static async FullTextSearchCollection(key) {
+    const response = await Collection.findAll({
+      where: Sequelize.literal(
+        "MATCH (name,about,topic) AGAINST(:key IN BOOLEAN MODE)"
+      ),
+      replacements: {
+        key: `+${key}*`,
+      },
+    });
+    return response;
   }
 }
 module.exports = HomeService;

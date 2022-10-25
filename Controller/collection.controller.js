@@ -116,6 +116,13 @@ class CollectionController {
     }
     res.send("Update done");
   }
+
+
+  static async Test(req,res,next) { 
+    const {key} = req.params;
+    const response = await CollectionService.test(key);
+    res.send(response); 
+  }
 }
 
 module.exports = CollectionController;

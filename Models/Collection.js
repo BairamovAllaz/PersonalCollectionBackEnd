@@ -54,7 +54,13 @@ const Collection = database.define(
   },
   {
     timestamps: false,
+  },
+  {
+    indexes: [ 
+      {type : 'FULLTEXT',name : 'text_idx',fields: ['name','about','topic']}
+    ]
   }
+
 );
 Collection.hasMany(Item);
 Collection.hasMany(Fields);

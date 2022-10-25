@@ -9,5 +9,10 @@ class HomeController{
         const response = await HomeService.GetItemsByDate();
         res.send(response);
     }
+    static async apiFullTextSearchCollection(req,res,next) { 
+        const {key} = req.params;
+        const response = await HomeService.FullTextSearchCollection(key);
+        res.send(response);
+    }
 }
 module.exports = HomeController;

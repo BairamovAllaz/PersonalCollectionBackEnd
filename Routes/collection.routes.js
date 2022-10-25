@@ -27,5 +27,4 @@ router.delete(
   "/Delete/:collectionId",
   CollectionController.apiCollectionDelete
 );
-
 module.exports = router;

@@ -100,6 +100,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+    await queryInterface.addIndex('collections',['name','about','topic'],{type: 'FULLTEXT'});
 
     await queryInterface.createTable("items", {
       Id: {

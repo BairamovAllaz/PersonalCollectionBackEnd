@@ -7,6 +7,7 @@ const User = require("../Models/UserModel");
 const Collection = require("../Models/Collection");
 const Item = require("../Models/Item");
 const CollectionLikes = require("../Models/collectionLikes");
+const { Sequelize } = require("sequelize");
 
 class CollectionService {
   static async CreateCollectionTable(collection) {
