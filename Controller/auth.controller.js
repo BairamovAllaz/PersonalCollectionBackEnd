@@ -145,7 +145,7 @@ class AuthController {
 
     static async apiGoogleAuthCallBack(req, res, next) {
         passport.authenticate('google', {
-            successRedirect: 'http://localhost:3000/success/google',
+            successRedirect: 'http://localhost:3000/',
             failureRedirect: 'http://localhost:3000/fail/google',
         })(req, res, next);
     }

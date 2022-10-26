@@ -33,8 +33,6 @@ app.set("trust proxy", 1); // trust first proxy
 app.use(passport.initialize());
 app.use(passport.session());
 require("./Configuration/passportconfig")(passport);
-//TODO FIX OAUTH2 GOOGLE
-//require("./Configuration/GoogleAuthConfig")(passport);
 
 const io = require("socket.io")(server, {
   cors: {
