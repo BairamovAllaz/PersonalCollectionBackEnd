@@ -9,6 +9,11 @@ class HomeService {
   static async GetLargestCollections() {
     try {
       const response = await Collection.findAll({
+        include : [
+          {
+            model : User
+          }
+        ],
         limit: 5,
         attributes: [
           "Id",
