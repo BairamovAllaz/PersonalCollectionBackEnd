@@ -38,6 +38,7 @@ class AuthService {
       };
       const isExsist = await AuthService.findUserByEmail(newuser.email);
       if (isExsist === null) {
+        
         const createdUser = await AuthService.CreateUser(newuser);
         return createdUser;
       } else {
