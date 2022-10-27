@@ -9,10 +9,10 @@ class HomeService {
   static async GetLargestCollections() {
     try {
       const response = await Collection.findAll({
-        include : [
+        include: [
           {
-            model : User
-          }
+            model: User,
+          },
         ],
         limit: 5,
         attributes: [
@@ -47,19 +47,19 @@ class HomeService {
         where: {
           isDelete: false,
         },
-        order : [['createdAt','DESC']],
+        order: [["createdAt", "DESC"]],
         include: [
           {
             model: Collection,
             include: [{ model: User }],
           },
           {
-            model : ItemLikes,
-            required : false
+            model: ItemLikes,
+            required: false,
           },
           {
-            model : ItemTags
-          }
+            model: ItemTags,
+          },
         ],
       });
       return response;
@@ -76,6 +76,7 @@ class HomeService {
       replacements: {
         key: `+${key}*`,
       },
+      include: [{ model: User }],
     });
     return response;
   }
