@@ -22,14 +22,13 @@ app.use(
 app.use(
   session({
     secret: "secretcode",
-    resave: true,
-    saveUninitialized: false,
-    rolling: true,
+    resave: false,
+    saveUninitialized: true,
+    proxy : true,
     cookie: {
       sameSite: "none",
-      secure: false,
+      secure: true,
       httpOnly: false,
-      domain: process.env.SOCKET_CLIENT,
     },
   })
 );
@@ -68,6 +67,7 @@ const userpageRoutes = require("./Routes/userpage.routes");
 const itemRoutes = require("./Routes/item.routes");
 const adminRoutes = require("./Routes/admin.routes");
 const homeRoutes = require("./Routes/home.routes");
+const { truncate } = require("fs");
 app.use("/v1", authRoute);
 app.use("/collection", controllerRoutes);
 app.use("/userpage", userpageRoutes);
