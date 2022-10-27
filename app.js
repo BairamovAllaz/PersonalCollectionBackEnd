@@ -23,8 +23,15 @@ app.use(
   session({
     secret: "secretcode",
     resave: true,
-    saveUninitialized: true,
-    cookie: { httpOnly: false },
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+      maxAge: 15 * MINUTE,
+      sameSite: "none",
+      secure: false,
+      httpOnly: false,
+      domain: process.env.SOCKET_CLIENT,
+    },
   })
 );
 app.use(cookieParser("secretcode"));
