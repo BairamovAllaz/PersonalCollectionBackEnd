@@ -24,6 +24,7 @@ app.use(
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
+    cookie: { httpOnly: false },
   })
 );
 app.use(cookieParser("secretcode"));
