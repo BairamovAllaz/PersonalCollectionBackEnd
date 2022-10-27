@@ -26,7 +26,6 @@ app.use(
     saveUninitialized: false,
     rolling: true,
     cookie: {
-      maxAge: 15 * MINUTE,
       sameSite: "none",
       secure: false,
       httpOnly: false,
