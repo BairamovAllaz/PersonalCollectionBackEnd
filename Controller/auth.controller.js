@@ -150,7 +150,7 @@ class AuthController {
 
   static async apiGoogleAuthCallBack(req, res, next) {
     passport.authenticate("google", {
-      successRedirect: "https://main--sprightly-boba-3c9eab.netlify.app",
+      successRedirect: "https://main--sprightly-boba-3c9eab.netlify.app/",
       failureRedirect:
         "https://main--sprightly-boba-3c9eab.netlify.app/fail/google",
     })(req, res, next);
