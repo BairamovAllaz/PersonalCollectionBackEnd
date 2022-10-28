@@ -24,12 +24,12 @@ app.use(
     secret: "secretcode",
     resave: false,
     saveUninitialized: true,
-    // proxy : true,
-    // cookie: {
-    //   sameSite: "none",
-    //   secure: true,
-    //   httpOnly: true,
-    // },
+    proxy : true,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+    },
   })
 );
 app.use(cookieParser("secretcode"));
