@@ -30,7 +30,7 @@ module.exports = function (passport) {
         clientID: process.env.GOOGLEAPIKEYCLIENTID,
         clientSecret: process.env.GOOGLEAPIKEYCLIENTSECRET,
         callbackURL: "https://personalcollection-itransition.herokuapp.com/v1/api/sessions/google",
-        proxy: true,
+        proxy: true
       },
       async (accessToken, refreshToken, profile, done) => {
         const newuser = {
