@@ -12,7 +12,6 @@ module.exports = function (passport) {
       { usernameField: "email", passwordField: "password" },
       async (username, password, done) => {
         const response = await AuthService.findUserByEmail(username);
-        console.log("Fuser: " + response);
         if (!response) return done(null, false);
         bcrypt.compare(password, response.password, (err, result) => {
           if (err) throw err;

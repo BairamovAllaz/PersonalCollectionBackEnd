@@ -10,4 +10,3 @@ database.authenticate().then(() => {
 }).catch(err => {
     console.log(err);
 })
-//FIX CONNECTION TO DATABASE WITH DOTENV FILES
