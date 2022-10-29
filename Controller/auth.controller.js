@@ -49,7 +49,7 @@ class AuthController {
             }
 
             const createdUser = await AuthService.CreateUser(user);
-            res.send(true);
+            res.send("Register Succesfully");
         }
     }
     static async apiGetAuthUserById(req, res, next) {
