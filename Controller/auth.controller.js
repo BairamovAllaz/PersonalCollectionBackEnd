@@ -88,7 +88,7 @@ class AuthController {
       userWithemail.Id,
       hash.replace("/", "")
     );
-    const link = `https://main--sprightly-boba-3c9eab.netlify.app/${userWithemail.Id}/${createdToken.token}`;
+    const link = `https://main--sprightly-boba-3c9eab.netlify.app/forgot-password/${userWithemail.Id}/${createdToken.token}`;
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {

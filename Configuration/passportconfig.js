@@ -27,9 +27,8 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID:
-          "117463871683-t7toavdkgej7j0frloaati8pllephe8t.apps.googleusercontent.com",
-        clientSecret: "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",
+        clientID: process.env.GOOGLEAPIKEYCLIENTID,
+        clientSecret: process.env.GOOGLEAPIKEYCLIENTSECRET,
         callbackURL:
           "https://personalcollection-itransition.herokuapp.com/v1/api/sessions/google",
         proxy: true,
