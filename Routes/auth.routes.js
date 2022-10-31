@@ -10,7 +10,7 @@ router.get("/getuser",AuthController.apiGetUser);
 router.post("/login",AuthController.apiLoginUser);
 router.get("/logout",AuthController.apiLogOut);
 router.post("/forgot-password",AuthController.apiForgotPassword);
-router.get("/checkToken",AuthController.apiCheckTokenExist);
+router.get("/checkToken/:token",AuthController.apiCheckTokenExist);
 router.put("/forgot-password/:userId/:token",AuthController.apiForgotPasswordPost);
 router.get('/google', AuthController.apiOpenEmail);
 

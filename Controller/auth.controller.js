@@ -139,7 +139,7 @@ class AuthController {
   }
 
   static async apiCheckTokenExist(req, res, next) {
-    const { token } = req.body;
+    const { token } = req.params;
     const response = await AuthService.GetTokenByToken(token);
     if (response) {
       res.send(true);
