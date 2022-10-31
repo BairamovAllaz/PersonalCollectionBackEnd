@@ -15,22 +15,10 @@ class CollectionController {
       newCollection
     );
     const fields = JSON.parse(req.body.field);
-    console.log(fields);
-    let isCreate = true;
-    if (fields.length === 1) {
-      fields.forEach(({ field_name, field_type }) => {
-        if (field_name === "" || field_type === "") {
-          isCreate = false;
-          console.log("not created field table");
-        }               
-      });
-    }
-    if (isCreate) {
-      const response = await CollectionService.CreateItem(
+    const response = await CollectionService.CreateItem(
         fields,
         collection.Id
-      );
-    }
+    );
     res.status(200).json(collection.Id);
   }
 
