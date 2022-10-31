@@ -5,7 +5,22 @@ const ItemLikes = require("../Models/ItemLikes");
 const ItemTags = require("../Models/ItemTags");
 const User = require("../Models/UserModel");
 const { Sequelize } = require("sequelize");
+const CollectionLikes = require("../Models/collectionLikes");
 class HomeService {
+  static async getAllCollections() {
+    try {
+      const response = await Collection.findAll({
+        where: {
+          isDelete: false,
+        },
+        include: [{ model: User }, { model: Item }, { model: CollectionLikes }],
+      });
+      return response;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   static async GetLargestCollections() {
     try {
       const response = await Collection.findAll({

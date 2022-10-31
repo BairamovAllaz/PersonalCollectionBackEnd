@@ -25,11 +25,11 @@ app.use(
     resave: false,
     saveUninitialized: true,
     proxy : true,
-    cookie: {
-      sameSite: "none",
-      secure: true,
-      httpOnly: true,
-    },
+    // cookie: {
+    //   sameSite: "none",
+    //   secure: true,
+    //   httpOnly: true,
+    // },
   })
 );
 app.use(cookieParser("secretcode"));

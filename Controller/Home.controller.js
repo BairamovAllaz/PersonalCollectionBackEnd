@@ -14,5 +14,10 @@ class HomeController{
         const response = await HomeService.FullTextSearchCollection(key);
         res.send(response);
     }
+
+    static async apiGetAllCollections(req,res,next) { 
+        const response = await HomeService.getAllCollections();
+        res.status(200).send(response);
+    }
 }
 module.exports = HomeController;

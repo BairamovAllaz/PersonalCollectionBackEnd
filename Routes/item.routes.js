@@ -9,16 +9,17 @@ router.post(
 );
 
 router.get(
-  "/getAllItems/:userId/:collectionId",
+  "/getAllCollectionItems/:collectionId",
   ItemController.apiGetAllCollectionItems
 );
-router.get(
-  "/getItemsById/:userId/:collectionId/:itemId",
-  ItemController.apiGetCollectionItemById
-);
+router.get("/getItemsById/:itemId", ItemController.apiGetCollectionItemById);
 router.get("/getItemById/:itemId", ItemController.apiGetItemsById);
 router.get("/getAllItemsFileds/:itemId", ItemController.apiGetItemsFields);
-router.put("/updateItemFields/:itemId",multer.single("image"), ItemController.ApiUpdateItemFields);
+router.put(
+  "/updateItemFields/:itemId",
+  multer.single("image"),
+  ItemController.ApiUpdateItemFields
+);
 router.post("/addLikeItem", ItemController.apiItemAddLike);
 router.delete("/DeleteItemById/:itemId", ItemController.ApiDeleteItemById);
 router.get("/ItemDislike/:userId/:itemId", ItemController.apiItemDislike);
