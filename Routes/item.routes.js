@@ -7,7 +7,6 @@ router.post(
   multer.single("image"),
   ItemController.apiCreateItemWithFields
 );
-
 router.get(
   "/getAllCollectionItems/:collectionId",
   ItemController.apiGetAllCollectionItems

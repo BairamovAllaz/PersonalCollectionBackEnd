@@ -86,7 +86,7 @@ class AuthController {
     const hash = await bcrypt.hash(resetToken, 10);
     const createdToken = await AuthService.CreateToken(
       userWithemail.Id,
-      hash.replace("/", "")
+      hash.replace(/\//g, "")
     );
     const link = `https://main--sprightly-boba-3c9eab.netlify.app/forgot-password/${userWithemail.Id}/${createdToken.token}`;
     var transporter = nodemailer.createTransport({
