@@ -30,6 +30,9 @@ class HomeService {
           },
         ],
         limit: 5,
+        where: { 
+          isDelete : false,
+        },
         attributes: [
           "Id",
           "name",
