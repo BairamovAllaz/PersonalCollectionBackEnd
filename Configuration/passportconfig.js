@@ -27,10 +27,12 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLEAPIKEYCLIENTID,
-        clientSecret: process.env.GOOGLEAPIKEYCLIENTSECRET,
-        callbackURL: "https://personalcollection-itransition.herokuapp.com/v1/api/sessions/google",
-        proxy: true
+        clientID:
+          "117463871683-t7toavdkgej7j0frloaati8pllephe8t.apps.googleusercontent.com",
+        clientSecret: "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",
+        callbackURL:
+          "https://personalcollection-itransition.herokuapp.com/v1/api/sessions/google",
+        proxy: true,
       },
       async (accessToken, refreshToken, profile, done) => {
         const newuser = {
