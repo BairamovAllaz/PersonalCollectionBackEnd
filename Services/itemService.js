@@ -3,51 +3,45 @@ const ItemTags = require("../Models/ItemTags");
 const ItemField = require("../Models/ItemFields");
 const User = require("../Models/UserModel");
 const Collection = require("../Models/Collection");
-const Item = require("../Models/Item");
 const ItemLikes = require("../Models/ItemLikes");
 const CollectionLikes = require("../Models/collectionLikes");
 const ItemComments = require("../Models/itemComments");
 class ItemService {
   static async GetAllCollectionItems(userId, collectionId) {
     try {
-      const response = await User.findAll({
+      const response = await Collection.findAll({
         where: {
-          Id: userId,
+          Id: collectionId,
         },
         include: [
           {
-            model: Collection,
+            model: Items,
             where: {
-              Id: collectionId,
+              isDelete: false,
             },
+            required: false,
             include: [
               {
-                model: Item,
-                where: {
-                  isDelete: false,
-                },
-                required: false,
-                include: [
-                  {
-                    model: ItemField,
-                  },
-                  {
-                    model: ItemTags,
-                  },
-                  {
-                    model: ItemLikes,
-                    required: false,
-                  },
-                  {
-                    model: ItemComments,
-                    required: false,
-                  },
-                ],
+                model: ItemField,
               },
               {
-                model: CollectionLikes,
+                model: ItemTags,
+              },
+              {
+                model: ItemLikes,
+                required: false,
+              },
+              {
+                model: ItemComments,
+                required: false,
               },
             ],
+          },
+          {
+            model: User,
+          },
+          {
+            model: CollectionLikes,
           },
         ],
       });
@@ -57,40 +51,29 @@ class ItemService {
     }
   }
 
-  static async GetCollectionItemById(userId, collectionId, itemId) {
+  static async GetCollectionItemById(itemId) {
     try {
-      const response = await User.findAll({
+      const response = await Items.findAll({
         where: {
-          Id: userId,
+          Id: itemId,
         },
         include: [
           {
+            model: ItemField,
+          },
+          {
+            model: ItemTags,
+          },
+          {
+            model: ItemLikes,
+          },
+          {
+            model: ItemComments,
+          },
+          {
             model: Collection,
-            where: {
-              Id: collectionId,
-            },
             include: [
-              {
-                model: Item,
-                where: {
-                  Id: itemId,
-                  isDelete: false,
-                },
-                include: [
-                  {
-                    model: ItemField,
-                  },
-                  {
-                    model: ItemTags,
-                  },
-                  {
-                    model: ItemLikes,
-                  },
-                  {
-                    model: ItemComments,
-                  },
-                ],
-              },
+              { model: User },
               {
                 model: CollectionLikes,
               },
@@ -106,7 +89,7 @@ class ItemService {
 
   static async GetItemsById(itemId) {
     try {
-      const response = Item.findAll({
+      const response = Items.findAll({
         where: {
           Id: itemId,
         },
@@ -207,7 +190,7 @@ class ItemService {
 
   static async DeleteItemById(itemId) {
     try {
-      const res = Item.update(
+      const res = Items.update(
         { isDelete: true },
         {
           where: {
@@ -234,7 +217,7 @@ class ItemService {
       console.log(err);
     }
   }
-  
+
   static async AddComment(comment) {
     try {
       const res = ItemComments.create(comment);
@@ -263,7 +246,7 @@ class ItemService {
 
   static async UpdateItem(itemId, field_name, field_value) {
     try {
-      const response = await Item.update(
+      const response = await Items.update(
         { [field_name]: field_value },
         {
           where: {

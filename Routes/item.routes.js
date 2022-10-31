@@ -9,11 +9,11 @@ router.post(
 );
 
 router.get(
-  "/getAllItems/:userId/:collectionId",
+  "/getAllCollectionItems/:collectionId",
   ItemController.apiGetAllCollectionItems
 );
 router.get(
-  "/getItemsById/:userId/:collectionId/:itemId",
+  "/getItemsById/:itemId",
   ItemController.apiGetCollectionItemById
 );
 router.get("/getItemById/:itemId", ItemController.apiGetItemsById);
