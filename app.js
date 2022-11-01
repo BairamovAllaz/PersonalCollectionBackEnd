@@ -5,7 +5,7 @@ const passport = require("passport");
 const session = require("express-session");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const cookieSession = require("cookie-session");
+const isAdmin = require("./Middleware/Admin");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -24,7 +24,7 @@ app.use(
     secret: "secretcode",
     resave: false,
     saveUninitialized: true,
-    proxy : true,
+    proxy: true,
     // cookie: {
     //   sameSite: "none",
     //   secure: true,
@@ -67,12 +67,11 @@ const userpageRoutes = require("./Routes/userpage.routes");
 const itemRoutes = require("./Routes/item.routes");
 const adminRoutes = require("./Routes/admin.routes");
 const homeRoutes = require("./Routes/home.routes");
-const { truncate } = require("fs");
 app.use("/v1", authRoute);
 app.use("/collection", controllerRoutes);
 app.use("/userpage", userpageRoutes);
 app.use("/items", itemRoutes);
-app.use("/admin", adminRoutes);
+app.use("/admin", isAdmin(), adminRoutes);
 app.use("/home", homeRoutes);
 app.get("/", (req, res) => {
   console.log(req.user);
