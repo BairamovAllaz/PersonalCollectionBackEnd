@@ -56,6 +56,7 @@ class ItemService {
       const response = await Items.findAll({
         where: {
           Id: itemId,
+          isDelete: false,
         },
         include: [
           {
