@@ -18,6 +18,7 @@ class AuthController {
           if (err) throw err;
           res.send(user);
         });
+        console.log("your user: " + user);
         req.user = user;
       }
     })(req, res, next);

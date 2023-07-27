@@ -30,8 +30,7 @@ module.exports = function (passport) {
         clientID:
           "456032094822-cn8vour4fqab64rp4ocaddil9om4tb80.apps.googleusercontent.com",
         clientSecret: "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",
-        callbackURL:
-          "https://personalcollection-itransition.herokuapp.com/v1/api/sessions/google",
+        callbackURL: "http://localhost:3000/v1/api/sessions/google",
         proxy: true,
       },
       async (accessToken, refreshToken, profile, done) => {
