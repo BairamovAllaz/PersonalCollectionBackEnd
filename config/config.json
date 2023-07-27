@@ -1,23 +1,23 @@
 {
   "development": {
     "username": "root",
-    "password": "Yunona701701",
+    "password": "ellez2004",
     "database": "personalcollection",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "Yunona701701",
+    "password": "ellez2004",
     "database": "personalcollection",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "b1e6a9504948f2",
-    "password": "138b6e28",
-    "database": "heroku_04408cfff076a85",
-    "host": "us-cdbr-east-06.cleardb.net",
+     "username": "root",
+    "password": "ellez2004",
+    "database": "personalcollection",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }
